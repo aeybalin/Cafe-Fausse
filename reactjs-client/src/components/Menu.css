@@ -1,0 +1,136 @@
+/* =========================================================
+   PAGE BACKGROUND
+========================================================= */
+.menu-page {
+  padding: 60px;
+  background: #ffffff;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+.menu-logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu-logo {
+  width: 320px;
+}
+
+/* =========================================================
+   MAIN MENU CARD
+========================================================= */
+.menu-card {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  border: 1.5px solid #d4af37; /* ✅ GOLD */
+  padding: 50px 40px;
+
+  background: #f7f7f7;
+}
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+.menu-title {
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 40px;
+}
+
+/* =========================================================
+   SECTION TITLE (CURSIVE GOLD)
+========================================================= */
+.menu-category {
+  font-family: "Great Vibes", cursive; /* ✅ cursive style */
+  color: #d4af37;                          /* ✅ gold */
+  font-size: 34px;
+
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   MENU ITEM CONTAINER
+========================================================= */
+.menu-item {
+  margin-bottom: 20px;
+}
+
+/* =========================================================
+   ITEM HEADER (NAME + DOTS + PRICE)
+========================================================= */
+.menu-item-header {
+  display: flex;
+  align-items: center;
+}
+
+/* item name */
+.item-name {
+  font-weight: 500;
+  font-size: 22px;
+}
+
+/* dotted line */
+.dots {
+  flex-grow: 1;
+  border-bottom: 2px dotted #444;
+  margin: 0 10px;
+}
+
+/* price aligned right */
+.price {
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ✅ NOTES SECTION WITH FULL BACKGROUND IMAGE
+========================================================= */
+.menu-notes {
+    width: 100vw;                      /* ✅ full viewport width */
+  margin-left: calc(50% - 50vw);     /* ✅ break out of centered layout */
+
+  margin-top: 40px;
+  margin-bottom: 0;
+
+  padding: 60px 0;     /* vertical spacing only */
+
+  /* ✅ BACKGROUND IMAGE */
+  background-image: url("../assets/menu-notes-bg.jpg");
+  background-size: cover;       /* fills the entire section */
+  background-position: center;  /* keeps it centered */
+  background-repeat: no-repeat;
+
+  position: relative;  /* needed for overlay */
+}
+/* ✅ subtle overlay for readability */
+.menu-notes::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.35); /* soft dark overlay */
+
+  z-index: 0;
+}
+.menu-notes ul {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  position: relative;
+  z-index: 1;
+
+  color: #fff;
+}
+
+.menu-page {
+  padding-bottom: 0;
+}
+
+.menu-notes li {
+  margin-bottom: 10px;
+}

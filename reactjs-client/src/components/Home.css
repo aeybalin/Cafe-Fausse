@@ -1,0 +1,58 @@
+.home-container {
+  padding: 60px 80px;
+}
+
+/* ✅ 2-column layout */
+.home-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;   /* ✅ increased spacing */
+  align-items: center;
+}
+
+
+/* ✅ LEFT IMAGE */
+.home-image img {
+  width: 100%;
+  border: 2px solid #D4AF37;   /* ✅ thinner border */
+  border-radius: 6px;
+}
+
+
+/* ✅ RIGHT TEXT */
+.home-text {
+  text-align: center;        /* ✅ center text */
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* ✅ center vertically */
+}
+
+/* ✅ RIGHT HOME LOGO */
+.home-logo {
+  width: 350px;   /* ✅ adjust until it matches your wireframe */
+  margin-bottom: 15px;
+}
+
+/* ✅ TITLE */
+.home-title {
+  font-size: 64px;
+  color: #D4AF37;
+  font-family: "Great Vibes", cursive;
+  margin-bottom: 15px;
+}
+
+/* ✅ TAGLINE */
+.home-tagline {
+  font-family: "Great Vibes", cursive;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+/* ✅ INFO TEXT */
+.home-address,
+.home-phone,
+.home-hours {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+}
