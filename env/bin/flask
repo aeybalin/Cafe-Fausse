@@ -1,0 +1,8 @@
+#!/bin/sh
+'''exec' "/Users/aurelieeybalin/Library/CloudStorage/OneDrive-Skyeview/Quantic - MSAIE/Web Application and Interface Design/Cafe Fausse Project/App_Code_Draft/App_Code_Draft/Flask-backend/env/bin/python3.11" "$0" "$@"
+' '''
+import sys
+from flask.cli import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())
