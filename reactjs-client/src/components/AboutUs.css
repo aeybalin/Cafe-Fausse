@@ -1,0 +1,125 @@
+/* =========================================================
+   PAGE BACKGROUND + NAVBAR / FOOTER SEPARATION
+========================================================= */
+.about-page {
+  background: #ffffff;   /* ✅ white content area */
+  padding: 40px 80px;
+}
+
+/* =========================================================
+   LOGO (REPLACES TITLE)
+========================================================= */
+.about-logo-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-logo {
+  width: 350px;
+}
+/* =========================================================
+   ✅ INLINE LOGO (BETWEEN TITLE AND TEXT)
+========================================================= */
+.about-inline-logo {
+  margin: 20px 0 10px;   /* spacing above & below */
+  text-align: center;
+}
+
+.about-inline-logo img {
+  width: 260px;          /* ✅ slightly smaller than header logo */
+}
+
+/* =========================================================
+   MAIN CONTENT (TEXT + IMAGE)
+========================================================= */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+/* TEXT */
+.about-text {
+  text-align: center;
+}
+
+.about-subtitle {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+/* IMAGE */
+.about-image img {
+  width: 100%;
+  border: 3px solid #D4AF37;   /* ✅ gold border */
+}
+
+/* =========================================================
+   QUOTE SECTION
+========================================================= */
+.about-quote {
+  text-align: center;
+  font-family: "Great Vibes", cursive;
+  font-size: 28px;
+  margin: 60px 0;
+}
+
+/* =========================================================
+   TEAM SECTION (SIDE BY SIDE)
+========================================================= */
+.team-section {
+  margin-top: 40px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+/* CARD */
+.team-card {
+  text-align: center;
+}
+
+/* IMAGES */
+.team-image img {
+  width: 100%;
+  max-width: 260px;
+}
+
+/* IMAGE BORDERS */
+.team-image.chef img {
+  border: 4px solid #D4AF37;   /* blue */
+}
+
+.team-image.maria img {
+  border: 4px solid #D4AF37;   /* gold */
+}
+
+/* NAMES */
+.team-card h3 {
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+/* BIOS */
+.team-card p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   NAVBAR / FOOTER VISUAL SEPARATION
+   (ensures white content stands out)
+========================================================= */
+.about-page {
+  border-top: 20px solid #ffffff;
+}

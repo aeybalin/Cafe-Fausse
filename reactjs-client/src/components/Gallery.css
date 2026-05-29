@@ -1,0 +1,194 @@
+/* =========================================================
+   PAGE BACKGROUND
+   Keep this white so it contrasts with navbar/footer
+========================================================= */
+.gallery-page {
+  background: #ffffff;
+  padding: 40px 80px 60px;
+}
+
+/* =========================================================
+   MAIN GALLERY SECTION
+========================================================= */
+.gallery-main {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+/* =========================================================
+   IMAGE FRAME
+   Gold border to match app branding
+========================================================= */
+.gallery-image-frame {
+  width: 380px;          /* ✅ fixed width */
+  height: 260px;         /* ✅ fixed height */
+
+  margin: 0 auto;        /* ✅ center frame */
+
+  border: 3px solid #d4af37;
+  background: #f7f7f7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 20px;           /* ✅ adds breathing space */
+  text-align: center;      /* ✅ centers content */
+
+  overflow: hidden;      /* ✅ hide overflow */
+}
+
+
+/* Main gallery image */
+.gallery-main-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;   /* ✅ KEY: fills frame consistently */
+  display: block;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   CAROUSEL CONTROLS
+   Arrows under image + dots navigation
+========================================================= */
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+/* Left / right arrows */
+.gallery-arrow {
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+  color: #111;
+  padding: 0;
+}
+
+/* Dots wrapper */
+.gallery-dots {
+  display: flex;
+  gap: 18px;
+}
+
+/* Individual dot */
+.gallery-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: #cfcfcf;
+  cursor: pointer;
+}
+
+/* Active dot */
+.gallery-dot.active {
+  background: #111;
+}
+
+/* =========================================================
+   LIGHTBOX
+   Dark overlay + enlarged image
+========================================================= */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 30px;
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 2px solid #d4af37;
+  background: #fff;
+}
+
+/* =========================================================
+   BOTTOM GRID
+   Awards + Reviews side by side
+========================================================= */
+.gallery-bottom-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+/* individual bottom cards */
+.gallery-info-card {
+  text-align: left;
+}
+
+/* headings */
+.gallery-info-title {
+  font-size: 34px;
+  margin-bottom: 24px;
+}
+
+/* awards text */
+.gallery-info-text {
+  font-size: 18px;
+  margin-bottom: 26px;
+  line-height: 1.6;
+}
+
+/* reviews */
+.gallery-review-quote {
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.gallery-review-source {
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 28px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 980px) {
+  .gallery-page {
+    padding: 30px 20px 50px;
+  }
+
+  .gallery-bottom-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .gallery-main-image {
+    max-height: 420px;
+  }
+
+  .gallery-controls {
+    gap: 18px;
+  }
+
+  .gallery-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .gallery-arrow {
+    font-size: 34px;
+  }
+}

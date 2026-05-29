@@ -1,0 +1,45 @@
+
+.navbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 10px 40px;   /* slightly reduce vertical padding */
+}
+
+
+/* ✅ LEFT LOGO */
+.logo-container {
+  justify-self: start;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+}
+
+/* ✅ CENTER MENU */
+.nav-links {
+  justify-self: center;
+  display: flex;
+  gap: 30px;
+}
+
+/* ✅ NAV ITEMS */
+.nav-item {
+  text-decoration: none;
+  color: #555;
+  font-weight: normal;
+  transition: all 0.2s ease;
+}
+
+/* ✅ ACTIVE PAGE */
+.nav-item.active {
+  font-weight: bold;
+  color: #D4AF37;
+}
+
+/* ✅ HOVER */
+.nav-item:hover {
+  color: #D4AF37;
+}

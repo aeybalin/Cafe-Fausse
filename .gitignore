@@ -1,0 +1,20 @@
+# Python virtual environments
+env/
+venv/
+Flask-backend/env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# React / Node
+node_modules/
+
+# Environment files
+.env
+
+# macOS
+.DS_Store
+
+# Large/compressed files
+*.zip
