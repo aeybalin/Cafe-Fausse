@@ -18,3 +18,6 @@ node_modules/
 
 # Large/compressed files
 *.zip
+
+# Database
+Flask-backend/instance/database.db
