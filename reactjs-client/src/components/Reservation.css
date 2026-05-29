@@ -1,408 +1,424 @@
 /* =========================================================
-   PAGE WRAPPER
-   Outer spacing for the reservations page
-========================================================= */
-.reservation-page {
-  padding: 60px;
-  background: #ffffff;
+   PAGE WRAPPER  
+   Outer spacing for the reservations page  
+========================================================= */  
+.reservation-page {  
+  padding: 60px;  
+  background: #ffffff;  
+}  
+
+/* =========================================================  
+   TOP CARD  
+   Main bordered panel used for search / alert / finalize / confirmed  
+========================================================= */  
+.reservation-card {  
+  max-width: 1120px;  
+  margin: 40px auto 50px;  
+  border: 1.5px solid #d4af37;  
+  background: #f7f7f7;  
+  padding: 32px 28px 34px;  
+}  
+
+/* =========================================================  
+   HEADINGS  
+========================================================= */  
+.reservation-title,  
+.reservation-subtitle {  
+  text-align: center;  
+  font-size: 46px;  
+  font-weight: 400;  
+  letter-spacing: 1px;  
+  margin: 0 0 48px;  
+}  
+
+.details-heading {  
+  font-size: 28px;  
+  font-weight: 700;  
+  color: #1f2740;  
+  margin: 0 0 18px;  
+}  
+
+/* =========================================================  
+   LOGO INSIDE FINALIZE CARD  
+========================================================= */  
+.reservation-logo {  
+  display: block;  
+  margin: 0 auto 8px;  
+  width: 320px;  
+  height: auto;  
+}  
+
+/* =========================================================  
+   ALERT MESSAGES  
+========================================================= */  
+.reservation-alert {  
+  display: flex;  
+  align-items: center;  
+  gap: 14px;  
+  max-width: 980px;  
+  margin: 0 auto 36px;  
+  padding: 26px 28px;  
+  font-size: 18px;  
+  line-height: 1.5;  
+}  
+
+.error-alert {  
+  background: #efd4d6;  
+  color: #7b3237;  
+}  
+
+.success-alert {  
+  background: #d7e7d5;  
+  color: #417d3d;  
+}  
+
+.alert-icon {  
+  font-size: 28px;  
+  line-height: 1;  
+}  
+
+/* =========================================================  
+   SEARCH ROW  
+   DATE / PEOPLE / TIME / BUTTON  
+========================================================= */  
+.reservation-search-row {  
+  display: grid;  
+  grid-template-columns: 1fr 1fr 1fr auto;  
+  gap: 32px;  
+  align-items: start;  
+  max-width: 1080px;  
+  margin: 0 auto;  
+}  
+
+/* shared label styling */  
+.search-field label,  
+.search-button-label {  
+  display: block;  
+  font-size: 20px;  
+  margin-bottom: 12px;  
+  color: #000;  
+}  
+
+/* invisible label used only so button aligns with input boxes */  
+.search-button-label {  
+  visibility: hidden;  
+}  
+
+/* shared field appearance */  
+.search-field select,  
+.custom-date-wrapper {  
+  width: 100%;  
+  height: 62px;  
+  background: #dedede;  
+  border: none;  
+  border-radius: 0;  
+  padding: 0 18px;  
+
+  /* ✅ key alignment fixes */  
+  display: flex;  
+  align-items: center;      /* vertical centering */  
+  justify-content: flex-start;  
+  font-size: 16px;  
+  box-sizing: border-box;  
+  position: relative;  
+  cursor: pointer;  
+}  
+
+/* custom visible date field */  
+.custom-date-wrapper {  
+  display: flex;  
+  align-items: center;  
+  position: relative;  
+  cursor: pointer;  
+}  
+
+.custom-date-wrapper::after {  
+  content: "";  
+  position: absolute;  
+  right: 18px;  
+
+  border-left: 11px solid transparent;  
+  border-right: 11px solid transparent;  
+  border-top: 16px solid black;  
+
+  top: 50%;                      /* ✅ CHANGE THIS */  
+  transform: translateY(-50%);   /* ✅ ADD THIS */  
+}  
+
+/* makes texts sit like select text */  
+.custom-date-wrapper span {  
+  display: flex;  
+  align-items: center;  
+  height: 100%;  
+}  
+
+/* placeholder style inside date box */  
+.placeholder-text {  
+  color: #666;  
+}  
+
+/* hidden real date input (used only to summon native date picker) */  
+.hidden-date-input {  
+  position: absolute;  
+  opacity: 0;  
+  pointer-events: none;  
+  width: 1px;  
+  height: 1px;  
+}  
+
+/* select fields */  
+.search-field select {  
+  appearance: none;  
+  -webkit-appearance: none;  
+  -moz-appearance: none;  
+  outline: none;  
+  padding-right: 52px;  
+}  
+
+/* one clean arrow for PEOPLE + TIME */  
+.select-field {  
+  position: relative;  
+}  
+
+/* remove default arrow */  
+.select-field select {  
+  appearance: none;  
+  -webkit-appearance: none;  
+  -moz-appearance: none;  
+  padding-right: 52px;  
+}  
+
+.select-field {  
+  position: relative;  
+}  
+
+.select-field select {  
+  appearance: none;  
+  -webkit-appearance: none;  
+  -moz-appearance: none;  
+  padding-right: 52px;  
+}  
+
+/* ✅ same triangle as DATE */  
+.select-field::after {  
+  content: "";  
+  position: absolute;  
+  right: 18px;  
+
+  border-left: 11px solid transparent;  
+  border-right: 11px solid transparent;  
+  border-top: 16px solid black;  
+
+  top: calc(50% + 10px);  
+  transform: translateY(-50%);  
+}  
+
+/* light placeholder text in selects */  
+.placeholder-select {  
+  color: #666;  
+}  
+
+#time.placeholder-select {
+  color: #666;   /* ✅ force same color as PEOPLE */
 }
 
-/* =========================================================
-   TOP CARD
-   Main bordered panel used for search / alert / finalize / confirmed
-========================================================= */
-.reservation-card {
-  max-width: 1120px;
-  margin: 40px auto 50px;
-  border: 1.5px solid #d4af37;
-  background: #f7f7f7;
-  padding: 32px 28px 34px;
-}
-
-/* =========================================================
-   HEADINGS
-========================================================= */
-.reservation-title,
-.reservation-subtitle {
-  text-align: center;
-  font-size: 46px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  margin: 0 0 48px;
-}
-
-.details-heading {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2740;
-  margin: 0 0 18px;
-}
-
-/* =========================================================
-   LOGO INSIDE FINALIZE CARD
-========================================================= */
-.reservation-logo {
-  display: block;
-  margin: 0 auto 8px;
-  width: 320px;
-  height: auto;
-}
-
-/* =========================================================
-   ALERT MESSAGES
-========================================================= */
-.reservation-alert {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  max-width: 980px;
-  margin: 0 auto 36px;
-  padding: 26px 28px;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.error-alert {
-  background: #efd4d6;
-  color: #7b3237;
-}
-
-.success-alert {
-  background: #d7e7d5;
-  color: #417d3d;
-}
-
-.alert-icon {
-  font-size: 28px;
-  line-height: 1;
-}
-
-/* =========================================================
-   SEARCH ROW
-   DATE / PEOPLE / TIME / BUTTON
-========================================================= */
-.reservation-search-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: 32px;
-  align-items: start;
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-/* shared label styling */
-.search-field label,
-.search-button-label {
-  display: block;
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: #000;
-}
-
-/* invisible label used only so button aligns with input boxes */
-.search-button-label {
-  visibility: hidden;
-}
-
-/* shared field appearance */
-.search-field select,
-.custom-date-wrapper {
-  width: 100%;
-  height: 62px;
-
-  background: #dedede;
-  border: none;
-  border-radius: 0;
-
-  padding: 0 18px;
-
-  /* ✅ key alignment fixes */
-  display: flex;
-  align-items: center;      /* vertical centering */
-  justify-content: flex-start;
-
-  font-size: 16px;
-  box-sizing: border-box;
-
-  position: relative;
-  cursor: pointer;
-}
-
-
-/* custom visible date field */
-.custom-date-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-}
-
-.custom-date-wrapper::after {
-  content: "";
-  position: absolute;
-  right: 18px;
-
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-top: 16px solid black;
-
-  top: 50%;                      /* ✅ CHANGE THIS */
-  transform: translateY(-50%);   /* ✅ ADD THIS */
-}
-
-
-/* makes texts sit like select text */
-.custom-date-wrapper span {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-/* placeholder style inside date box */
-.placeholder-text {
+/* ✅ FORCE TIME placeholder to match PEOPLE */
+#time:invalid {
   color: #666;
 }
 
-/* hidden real date input (used only to summon native date picker) */
-.hidden-date-input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 1px;
-  height: 1px;
-}
+.search-field select option {  
+  color: #000;  
+}  
 
-/* select fields */
-.search-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  outline: none;
-  padding-right: 52px;
-}
+/* disable time until date selected */  
+.search-field select:disabled {  
+  opacity: 0.75;  
+  cursor: not-allowed;  
+}  
 
-/* one clean arrow for PEOPLE + TIME */
-
-.select-field {
-  position: relative;
-}
-
-/* remove default arrow */
-.select-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 52px;
-}
-
-.select-field {
-  position: relative;
-}
-
-.select-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 52px;
-}
-
-/* ✅ same triangle as DATE */
-.select-field::after {
-  content: "";
-  position: absolute;
-  right: 18px;
-
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-top: 16px solid black;
-
-  top: calc(50% + 10px);
-  transform: translateY(-50%);
-}
-
-
-
-/* light placeholder text in selects */
-.placeholder-select {
-  color: #666;
-}
-
-.search-field select option {
-  color: #000;
-}
-
-/* disable time until date selected */
-.search-field select:disabled {
-  opacity: 0.75;
-  cursor: not-allowed;
-}
-
-/* =========================================================
-   FIND A TABLE BUTTON
-========================================================= */
+/* =========================================================  
+   FIND A TABLE BUTTON  
+========================================================= */  
 .search-button-wrap {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
+  margin-top: -6px;   /* ✅ lift button slightly */
 }
 
-.find-table-btn {
-  height: 62px;
-  min-width: 240px;
-  border: 2px solid #111;
-  background: #111;
-  color: #fff;
-  border-radius: 0;
-  padding: 0 26px;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease;
-}
 
-.find-table-btn:hover {
-  background: #2f2f2f;
-  border-color: #2f2f2f;
-}
+.find-table-btn {  
+  height: 62px;  
+  min-width: 240px;  
+  border: 2px solid #111;  
+  background: #111;  
+  color: #fff;  
+  border-radius: 0;  
+  padding: 0 26px;  
+  font-size: 20px;  
+  font-weight: 600;  
+  line-height: 1;  
+  letter-spacing: 0.5px;  
+  display: inline-flex;  
+  align-items: center;  
+  justify-content: center;  
+  white-space: nowrap;  
+  cursor: pointer;  
+  transition: background-color 0.18s ease, border-color 0.18s ease;  
+}  
 
-/* =========================================================
-   SUMMARY ROW
-========================================================= */
-.reservation-summary {
-  display: flex;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
-  margin: 8px 0 28px;
-  font-size: 18px;
-}
+.find-table-btn:hover {  
+  background: #2f2f2f;  
+  border-color: #2f2f2f;  
+}  
 
-.summary-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+/* =========================================================  
+   SUMMARY ROW  
+========================================================= */  
+.reservation-summary {  
+  display: flex;  
+  justify-content: center;  
+  gap: 48px;  
+  flex-wrap: wrap;  
+  margin: 8px 0 28px;  
+  font-size: 18px;  
+}  
 
-/* =========================================================
-   DRESS CODE BOX
-========================================================= */
-.dress-code-box {
-  max-width: 980px;
-  margin: 0 auto 20px;
-  background: #d4d4d4;
-  padding: 24px;
-  font-size: 18px;
-  line-height: 1.7;
-}
+.summary-item {  
+  display: flex;  
+  align-items: center;  
+  gap: 8px;  
+}  
 
-.dress-code-box strong {
-  font-weight: 700;
-  text-decoration: underline;
-}
+/* =========================================================  
+   DRESS CODE BOX  
+========================================================= */  
+.dress-code-box {  
+  max-width: 980px;  
+  margin: 0 auto 20px;  
+  background: #d4d4d4;  
+  padding: 24px;  
+  font-size: 18px;  
+  line-height: 1.7;  
+}  
 
-/* =========================================================
-   DETAILS FORM SECTION (below top card)
-========================================================= */
-.reservation-details-section {
-  max-width: 1120px;
-  margin: 0 auto;
-}
+.dress-code-box strong {  
+  font-weight: 700;  
+  text-decoration: underline;  
+}  
 
-.details-form {
-  width: 100%;
-}
+/* =========================================================  
+   DETAILS FORM SECTION (below top card)  
+========================================================= */  
+.reservation-details-section {  
+  max-width: 1120px;  
+  margin: 0 auto;  
+}  
 
-.two-column-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
+.details-form {  
+  width: 100%;  
+}  
 
-.details-field {
-  margin-bottom: 16px;
-}
+.two-column-row {  
+  display: grid;  
+  grid-template-columns: 1fr 1fr;  
+  gap: 32px;  
+}  
 
-.details-field label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
-  color: #111;
-}
+.details-field {  
+  margin-bottom: 16px;  
+}  
 
-.details-field input {
+.details-field label {  
+  display: block;  
+  margin-bottom: 8px;  
+  font-size: 16px;  
+  color: #111;  
+}  
+
+.details-field input,
+.details-field input[type="text"],
+.details-field input[type="email"] {
   width: 100%;
   height: 56px;
-  border: 2px solid #212121;
-  background: transparent;
+
+  border: 2px solid #111;
+  background-color: #dedede;
+
   padding: 0 18px;
   font-size: 16px;
   box-sizing: border-box;
+
+  border-radius: 4px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  outline: none;
+  box-shadow: none;
 }
 
-.mandatory-note {
-  margin: 10px 0 16px;
-  font-size: 14px;
-  color: #666;
-}
 
-.checkbox-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-  font-size: 15px;
-  color: #555;
-}
+.mandatory-note {  
+  margin: 10px 0 16px;  
+  font-size: 14px;  
+  color: #666;  
+}  
 
-.complete-reservation-btn {
-  width: 100%;
-  margin-top: 18px;
-  height: 92px;
-  border: 2px solid #111;
-  background: #111;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 600;
-  text-align: left;
-  padding: 0 36px;
-  cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease;
-}
+.checkbox-row {  
+  display: flex;  
+  align-items: center;  
+  gap: 10px;  
+  margin-bottom: 14px;  
+  font-size: 15px;  
+  color: #555;  
+}  
 
-.complete-reservation-btn:hover {
-  background: #2f2f2f;
-  border-color: #2f2f2f;
-}
+.complete-reservation-btn {  
+  width: 100%;  
+  margin-top: 18px;  
+  height: 92px;  
+  border: 2px solid #111;  
+  background: #111;  
+  color: #fff;  
+  font-size: 22px;  
+  font-weight: 600;  
+  text-align: left;  
+  padding: 0 36px;  
+  cursor: pointer;  
+  transition: background-color 0.18s ease, border-color 0.18s ease;  
+}  
 
-/* =========================================================
-   CONFIRMED STATE TEXT
-========================================================= */
-.confirmed-name {
-  text-align: center;
-  font-size: 24px;
-  margin: 18px 0;
-}
+.complete-reservation-btn:hover {  
+  background: #2f2f2f;  
+  border-color: #2f2f2f;  
+}  
 
-.confirmed-message {
-  text-align: center;
-  font-size: 22px;
-  line-height: 1.7;
-  max-width: 760px;
-  margin: 0 auto 18px;
-}
+/* =========================================================  
+   CONFIRMED STATE TEXT  
+========================================================= */  
+.confirmed-name {  
+  text-align: center;  
+  font-size: 24px;  
+  margin: 18px 0;  
+}  
 
-/* optional dev/test link */
+.confirmed-message {  
+  text-align: center;  
+  font-size: 22px;  
+  line-height: 1.7;  
+  max-width: 760px;  
+  margin: 0 auto 18px;  
+}  
 
+/* optional dev/test link */  
 .secondary-link-btn {
-  display: block;          /* ✅ ensures full-width behavior */
-  width: fit-content;      /* ✅ shrink to content */
-  margin: 20px auto 0;     /* ✅ centers horizontally */
+  display: block;
+  width: fit-content;     /* ✅ shrink to text */
+  margin: 20px auto;      /* ✅ center horizontally */
 
   background: transparent;
   border: none;
@@ -413,46 +429,69 @@
 }
 
 
+/* =========================================================  
+   RESPONSIVE  
+========================================================= */  
+@media (max-width: 980px) {  
+  .reservation-page {  
+    padding: 30px 20px 70px;  
+  }  
 
+  .reservation-search-row {  
+    grid-template-columns: 1fr;  
+  }  
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-@media (max-width: 980px) {
-  .reservation-page {
-    padding: 30px 20px 70px;
-  }
+  .search-button-label {  
+    display: none;  
+  }  
 
-  .reservation-search-row {
-    grid-template-columns: 1fr;
-  }
+  .find-table-btn {  
+    width: 100%;  
+    min-width: 0;  
+  }  
 
-  .search-button-label {
-    display: none;
-  }
+  .two-column-row {  
+    grid-template-columns: 1fr;  
+  }  
 
-  .find-table-btn {
-    width: 100%;
-    min-width: 0;
-  }
+  .reservation-summary {  
+    flex-direction: column;  
+    align-items: center;  
+    gap: 14px;  
+  }  
 
-  .two-column-row {
-    grid-template-columns: 1fr;
-  }
+  .complete-reservation-btn {  
+    height: 76px;  
+    font-size: 20px;  
+  }  
 
-  .reservation-summary {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
+  .reservation-title,  
+  .reservation-subtitle {  
+    font-size: 38px;  
+  }  
 
-  .complete-reservation-btn {
-    height: 76px;
-    font-size: 20px;
-  }
-
-  .reservation-title,
-  .reservation-subtitle {
-    font-size: 38px;
-  }
+  
 }
+/* =========================================================
+   TIME DROPDOWN ONLY
+   Keep the disabled TIME field from fading
+========================================================= */
+#time:disabled,
+#time[disabled] {
+  opacity: 1 !important;
+  color: #666 !important;
+  -webkit-text-fill-color: #666;
+}
+
+#time:disabled,
+#time[disabled] {
+  background-color: #dedede !important;
+  box-shadow: none !important;
+}
+/* =========================================================
+   FIX: TIME DROPDOWN SHOULD NOT LOOK FADED
+========================================================= */
+#time:disabled {
+  opacity: 1 !important;
+}
+

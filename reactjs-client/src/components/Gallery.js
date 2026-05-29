@@ -116,22 +116,48 @@ function Gallery() {
         </div>
       </div>
 
-      {/* =====================================================
-          LIGHTBOX OVERLAY
-          Click anywhere outside or on image area to close
-      ====================================================== */}
-      {isLightboxOpen && (
+        {/* =====================================================
+            LIGHTBOX OVERLAY
+            Click background to close
+        ====================================================== */}
+        {isLightboxOpen && (
         <div
-          className="lightbox-overlay"
-          onClick={() => setIsLightboxOpen(false)}
+            className="lightbox-overlay"
+            onClick={() => setIsLightboxOpen(false)}
         >
-          <img
-            src={images[currentIndex]}
-            alt={`Enlarged gallery slide ${currentIndex + 1}`}
-            className="lightbox-image"
-          />
+            {/* lightbox content wrapper stops background close */}
+            <div
+            className="lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+            >
+            {/* LEFT ARROW */}
+            <button
+                className="lightbox-arrow lightbox-arrow-left"
+                onClick={goToPrevious}
+                aria-label="Previous image"
+            >
+                &#8249;
+            </button>
+
+            {/* ENLARGED IMAGE */}
+            <img
+                src={images[currentIndex]}
+                alt={`Enlarged Gallery ${currentIndex + 1}`}
+                className="lightbox-image"
+            />
+
+            {/* RIGHT ARROW */}
+            <button
+                className="lightbox-arrow lightbox-arrow-right"
+                onClick={goToNext}
+                aria-label="Next image"
+            >
+                &#8250;
+            </button>
+            </div>
         </div>
-      )}
+        )}
+
 
       {/* =====================================================
           BOTTOM 2-COLUMN SECTION

@@ -70,9 +70,11 @@
   font-size: 40px;
   line-height: 1;
   cursor: pointer;
-  color: #111;
+
+  color: #bbb;       /* ✅ light gray */
   padding: 0;
 }
+
 
 /* Dots wrapper */
 .gallery-dots {
@@ -117,6 +119,57 @@
   border: 2px solid #d4af37;
   background: #fff;
 }
+/* =========================================================
+   LIGHTBOX CONTENT WRAPPER
+   Keeps arrows + image grouped together
+========================================================= */
+.lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* =========================================================
+   LIGHTBOX ARROWS
+========================================================= */
+.lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2100;
+
+  background: transparent;
+  border: none;
+
+  color: #fff;        /* ✅ white in overlay */
+  font-size: 54px;
+  line-height: 1;
+
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+
+
+.lightbox-arrow-left {
+  left: 40px;    /* ✅ fixed to screen */
+}
+
+.lightbox-arrow-right {
+  right: 40px;   /* ✅ fixed to screen */
+}
+
+
+/* optional positioning helper classes */
+.lightbox-arrow-left,
+.lightbox-arrow-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* =========================================================
    BOTTOM GRID
@@ -160,6 +213,57 @@
   font-size: 16px;
   font-style: italic;
   margin-bottom: 28px;
+}
+/* =========================================================
+   REMOVE ALL BUTTON HOVER / FOCUS / ACTIVE VISUALS
+   Keeps arrows and dots static with no blue highlight
+========================================================= */
+.gallery-arrow,
+.gallery-dot,
+.lightbox-arrow {
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-arrow:hover,
+.gallery-arrow:focus,
+.gallery-arrow:active,
+.gallery-arrow:focus-visible {
+  color: #bbb;                 /* keep light gray */
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.lightbox-arrow:hover,
+.lightbox-arrow:focus,
+.lightbox-arrow:active,
+.lightbox-arrow:focus-visible {
+  color: #fff;                 /* keep white in overlay */
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.gallery-dot:hover,
+.gallery-dot:focus,
+.gallery-dot:active,
+.gallery-dot:focus-visible {
+  background: #cfcfcf;         /* keep dots gray */
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.gallery-dot.active,
+.gallery-dot.active:hover,
+.gallery-dot.active:focus,
+.gallery-dot.active:active,
+.gallery-dot.active:focus-visible {
+  background: #111;
 }
 
 /* =========================================================

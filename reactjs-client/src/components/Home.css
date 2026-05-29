@@ -56,3 +56,139 @@
   margin-bottom: 20px;
   color: #333;
 }
+
+/* =========================================================
+   NEWSLETTER OVERLAY
+========================================================= */
+.newsletter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* =========================================================
+   NEWSLETTER MODAL
+========================================================= */
+.newsletter-modal {
+  background: #f4f4f4;
+  border: 1.5px solid #d4af37;
+  width: 500px;
+  max-width: 90%;
+  padding: 24px 22px 18px;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CLOSE BUTTON
+   Always visible, no hover styling
+========================================================= */
+.newsletter-close {
+  position: absolute;
+  top: 8px;
+  right: -75px;
+
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.newsletter-close:hover {
+  background: transparent;
+  color: #000;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+.newsletter-logo-wrap {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.newsletter-logo {
+  width: 220px;
+  height: auto;
+}
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+.newsletter-subtitle {
+  font-size: 18px;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   FORM LAYOUT
+========================================================= */
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsletter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.newsletter-field {
+  text-align: left;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.newsletter-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: #111;
+}
+
+/* =========================================================
+   INPUTS
+   Force all field types (including email) to match
+========================================================= */
+.newsletter-field input,
+.newsletter-field input[type="email"],
+.newsletter-field input[type="text"] {
+  width: 100%;
+  height: 44px;
+  border: 2px solid #111;
+  background: #dedede;
+  padding: 0 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   NOTE TEXT
+========================================================= */
+.newsletter-note {
+  font-size: 14px;
+  color: #333;
+  margin-top: 4px;
+  line-height: 1.3;
+  text-align: center;
+}
