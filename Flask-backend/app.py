@@ -7,7 +7,7 @@ app.config['SECRET_KEY']='gs9df3nkj'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-CORS(app)
+##CORS(app)
 
 cors = CORS(app, resources={
     r"/*": {
