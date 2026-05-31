@@ -1,9 +1,52 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms import Form, StringField, BooleanField, IntegerField, DateField, TimeField, SelectField
+from wtforms.validators import DataRequired, Email, Length, NumberRange, Optional
+from wtforms.widgets import TextInput
 
-class RegistrationForm(FlaskForm):
-    uname = StringField("Username", [Length(min=3, message="Username must be greater than 3 characters."), DataRequired()])
-    pword = PasswordField("Password", [DataRequired()])
-    confirm = PasswordField("Confirm Password", [DataRequired(), EqualTo("pword", message="Passwords must match!")])
-    submit = SubmitField("Sign In")
+class CustomDateField(DateField):
+    widget = TextInput()
+    
+class CustomTimeField(TimeField):
+    widget = TextInput()
+
+class ReservationSearchForm(Form):
+    date = CustomDateField('Date', validators=[DataRequired()])
+    people = IntegerField('People', validators=[DataRequired(), NumberRange(min=1, max=12)])
+    time = CustomTimeField('Time', validators=[DataRequired()])
+
+class ReservationDetailsForm(Form):
+    firstName = StringField('First Name', validators=[
+        DataRequired(),
+        Length(min=1, max=50)
+    ])
+    lastName = StringField('Last Name', validators=[
+        DataRequired(),
+        Length(min=1, max=50)
+    ])
+    email = StringField('Email', validators=[
+        DataRequired(),
+        Email()
+    ])
+    phone = StringField('Phone', validators=[
+        Optional(),
+        Length(max=30)
+    ])
+    occasion = StringField('Occasion', validators=[
+        Optional(),
+        Length(max=255)
+    ])
+    newsletter = BooleanField('Newsletter', default=False)
+    textUpdates = BooleanField('Text Updates', default=False)
+
+class CreateReservationForm(Form):
+    customer_id = IntegerField('Customer ID', validators=[DataRequired()])
+    date = CustomDateField('Date', validators=[DataRequired()])
+    time = CustomTimeField('Time', validators=[DataRequired()])
+    party_size = IntegerField('Party Size', validators=[DataRequired(), NumberRange(min=1, max=12)])
+    table_number = IntegerField('Table Number', validators=[DataRequired()])
+    status = SelectField('Status', choices=[
+        ('confirmed', 'Confirmed'),
+        ('checked_in', 'Checked In'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+        ('no_show', 'No Show')
+    ], default='confirmed')
