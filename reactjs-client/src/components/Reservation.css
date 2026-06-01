@@ -3,8 +3,11 @@
    Outer spacing for the reservations page  
 ========================================================= */  
 .reservation-page {  
-  padding: 60px;  
-  background: #ffffff;  
+  
+  padding: 60px;
+  background: var(--color-parchment);
+  color: var(--color-text-on-parchment);
+  
 }  
 
 /* =========================================================  
@@ -14,8 +17,10 @@
 .reservation-card {  
   max-width: 1120px;  
   margin: 40px auto 50px;  
-  border: 1.5px solid #d4af37;  
-  background: #f7f7f7;  
+  
+    background: var(--color-parchment-light);
+  border: 1.5px solid var(--color-gold);
+
   padding: 32px 28px 34px;  
 }  
 
@@ -109,7 +114,7 @@
 .custom-date-wrapper {  
   width: 100%;  
   height: 62px;  
-  background: #dedede;  
+  background: var(--color-parchment-dark); 
   border: none;  
   border-radius: 0;  
   padding: 0 18px;  
@@ -298,7 +303,7 @@
 .dress-code-box {  
   max-width: 980px;  
   margin: 0 auto 20px;  
-  background: #d4d4d4;  
+  background: var(--color-parchment-dark);  
   padding: 24px;  
   font-size: 18px;  
   line-height: 1.7;  
@@ -345,7 +350,7 @@
   height: 56px;
 
   border: 2px solid #111;
-  background-color: #dedede;
+  background: var(--color-parchment-dark);
 
   padding: 0 18px;
   font-size: 16px;
@@ -500,7 +505,7 @@
 
 #time:disabled,
 #time[disabled] {
-  background-color: #dedede !important;
+  background: var(--color-parchment-dark) !important;
   box-shadow: none !important;
 }
 /* =========================================================

@@ -3,7 +3,10 @@
    Keep this white so it contrasts with navbar/footer
 ========================================================= */
 .gallery-page {
-  background: #ffffff;
+  
+  background: var(--color-parchment);
+  color: var(--color-text-on-parchment);
+
   padding: 40px 80px 60px;
 }
 
@@ -26,14 +29,14 @@
 
   margin: 0 auto;        /* ✅ center frame */
 
-  border: 3px solid #d4af37;
-  background: #f7f7f7;
+  
+  border: 3px solid var(--color-gold);
+  background: var(--color-parchment-light);
 
   display: flex;
   align-items: center;
   justify-content: center;
   
-  padding: 20px;           /* ✅ adds breathing space */
   text-align: center;      /* ✅ centers content */
 
   overflow: hidden;      /* ✅ hide overflow */

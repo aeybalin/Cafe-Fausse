@@ -1,3 +1,41 @@
+:root {
+  /* =========================================================
+     CAFÉ FAUSSE COLOR DICTIONARY
+     Global design tokens for consistent styling
+  ========================================================= */
+
+  /* Base backgrounds */
+  --color-parchment: #f4efe4;
+  --color-parchment-light: #F8F3E7;
+  --color-parchment-dark: #E8DCC0;
+
+  /* Navigation / footer surfaces */
+  --color-warm-taupe:#e8e1d6;
+  --color-warm-taupe-dark: #f2e8d8;
+
+  /* Brand accents */
+  --color-gold: #b8962e;
+  --color-gold-muted: #BC9B3B;
+  --color-gold-deep: #A47E1B;
+
+  /* Text */
+  --color-text-primary: #2F241A;
+  --color-text-secondary: #5A4634;
+  --color-text-on-warm: #2F241A;
+  --color-text-on-parchment: #2F241A;
+
+  /* Utility */
+  --color-border-soft: #D8C7A6;
+  --color-overlay-light: rgba(248, 243, 231, 0.88);
+  --color-shadow-soft: rgba(47, 36, 26, 0.12);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +43,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Global Café Fausse parchment background */
+  background-color: var(--color-parchment);
+  color: var(--color-text-on-parchment);
 }
 
 code {

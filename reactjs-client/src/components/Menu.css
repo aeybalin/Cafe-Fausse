@@ -3,7 +3,9 @@
 ========================================================= */
 .menu-page {
   padding: 60px;
-  background: #ffffff;
+  background: var(--color-parchment);
+  color: var(--color-text-on-parchment);
+
 }
 
 /* =========================================================
@@ -28,7 +30,9 @@
   border: 1.5px solid #d4af37; /* ✅ GOLD */
   padding: 50px 40px;
 
-  background: #f7f7f7;
+  background: var(--color-parchment-light);
+  border: 1.5px solid var(--color-gold);
+;
 }
 
 /* =========================================================
@@ -45,7 +49,7 @@
 ========================================================= */
 .menu-category {
   font-family: "Great Vibes", cursive; /* ✅ cursive style */
-  color: #d4af37;                          /* ✅ gold */
+  color: var(--color-gold);                          /* ✅ gold */
   font-size: 34px;
 
   margin-top: 40px;

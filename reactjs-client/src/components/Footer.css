@@ -1,15 +1,17 @@
-
 .footer {
   text-align: center;
   padding: 20px;
-  background-color: #f4f4f4;
-  color: #555;
+
+  /* Match the warmer navigation/footer family */
+  background-color: var(--color-warm-taupe);
+  color: var(--color-text-on-warm);
+
   font-size: 14px;
-  
-  position: fixed;   /* ✅ keeps it at bottom */
+
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  
-  border-top: 1px solid #d4af37;  /* gold divider */
+
+  border-top: 2px solid var(--color-gold);
 }
