@@ -1,28 +1,29 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_wtf import FlaskForm
-from config import Config
-from forms import ReservationSearchForm, ReservationDetailsForm
+from config import Config, config
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from datetime import datetime, date, time
+from datetime import date, time, datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
+app.config['SECRET_KEY'] = config.SECRET_KEY
+
 
 def get_db_connection():
-    conn = psycopg2.connect(app.config['DATABASE_URL'])
+    conn = psycopg2.connect(config.DATABASE_URL)
     conn.cursor_factory = RealDictCursor
     return conn
+
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
     return jsonify({'status': 'healthy', 'message': 'Cafe Fausse API is running'})
 
+
 @app.route('/api/find-available-tables', methods=['POST'])
 def find_available_tables():
-    # Get JSON data instead of form data
     data = request.get_json()
     
     date_str = data.get('date')
@@ -33,11 +34,9 @@ def find_available_tables():
         return jsonify({'error': 'Missing required fields'}), 400
     
     try:
-        from datetime import date, time
         selected_date = date.fromisoformat(date_str)
         people = int(people_str)
         
-        # Handle time with or without seconds
         if ':' in time_str:
             parts = time_str.split(':')
             selected_time = time(int(parts[0]), int(parts[1]), int(parts[2]) if len(parts) == 3 else 0)
@@ -85,291 +84,119 @@ def find_available_tables():
         return jsonify({'error': str(e)}), 500
 
 
-@app.route('/api/check-table-availability', methods=['POST'])
-def check_table_availability():
-    data = request.json
+@app.route('/api/reserve-table', methods=['POST'])
+def reserve_table():
+    data = request.get_json()
     
-    if not all(k in data for k in ['table_number', 'date', 'time', 'party_size']):
-        return jsonify({'error': 'Missing required fields'}), 400
+    date_str = data.get('date')
+    people_str = data.get('people')
+    time_str = data.get('time')
+    name = data.get('name', '')
+    first_name = name.split(' ', 1)[0] if name else ''
+    last_name = name.split(' ', 1)[1] if name and ' ' in name else ''
+    email = data.get('email')
+    phone = data.get('phone', '') or None
+    text_updates = data.get('textUpdates', False)
     
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        cur.execute("""
-            SELECT fn_check_table_availability(
-                %s::integer,
-                %s::date,
-                %s::time,
-                %s::integer
-            ) as available
-        """, (data['table_number'], data['date'], data['time'], data['party_size']))
-        
-        result = cur.fetchone()
-        cur.close()
-        conn.close()
-        
+    if not all([date_str, people_str, time_str, email]):
         return jsonify({
-            'available': result['available'],
-            'table_number': data['table_number']
-        }), 200
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/create-customer', methods=['POST'])
-def create_customer():
-    form = ReservationDetailsForm(data=request.form)
+            'error': 'Missing required fields: date, people, time, email',
+            'success': False
+        }), 400
     
-    if not form.validate():
-        return jsonify({'error': 'Invalid input', 'details': form.errors}), 400
-    
+    conn = None
+    cur = None
     try:
         conn = get_db_connection()
         cur = conn.cursor()
         
+        # Step 1: Look up or create customer
         cur.execute("""
-            INSERT INTO customers (first_name, last_name, email, phone, newsletter_signup, newsletter_verified)
-            VALUES (%s, %s, %s, %s, %s, FALSE)
-            RETURNING id, email
-        """, (
-            form.firstName.data,
-            form.lastName.data,
-            form.email.data,
-            form.phone.data or None,
-            form.newsletter.data
-        ))
+            INSERT INTO customers (first_name, last_name, email, phone, newsletter_signup)
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (email) DO UPDATE SET 
+                first_name = EXCLUDED.first_name, 
+                last_name = EXCLUDED.last_name,
+                phone = EXCLUDED.phone
+            RETURNING id
+        """, (first_name, last_name, email, phone, text_updates))
         
         customer = cur.fetchone()
+        customer_id = customer['id']
+        
+        # Step 2: Parse time
+        if ':' in time_str:
+            parts = time_str.split(':')
+            reservation_time = time(int(parts[0]), int(parts[1]), int(parts[2]) if len(parts) == 3 else 0)
+        else:
+            return jsonify({'error': 'Invalid time format. Use HH:MM:SS'}), 400
+        
+        selected_date = date.fromisoformat(date_str)
+        start_datetime = datetime.combine(selected_date, reservation_time)
+        
+        # Step 3: Get available table with table_number AND table_type
+        cur.execute("""
+            SELECT table_number, table_type FROM fn_find_available_tables(
+                %s::date, %s::time, %s::integer
+            ) LIMIT 1
+        """, (selected_date, reservation_time, int(people_str)))
+        
+        table_result = cur.fetchone()
+        if not table_result:
+            return jsonify({
+                'error': 'No tables available for this time slot',
+                'success': False
+            }), 400
+        
+        table_number = table_result['table_number']
+        table_type = table_result['table_type']
+        
+        # Step 4: Insert reservation with table_type (NOT end_time - it's generated)
+        cur.execute("""
+            INSERT INTO reservations (customer_id, start_time, party_size, table_number, table_type, status)
+            VALUES (%s, %s, %s, %s, %s, 'confirmed')
+            RETURNING id
+        """, (customer_id, start_datetime, int(people_str), table_number, table_type))
+        
+        reservation_id = cur.fetchone()['id']
         conn.commit()
         cur.close()
         conn.close()
         
         return jsonify({
             'success': True,
-            'customer_id': customer['id'],
-            'email': customer['email'],
-            'message': 'Customer created successfully'
+            'message': 'Reservation confirmed',
+            'reservation_id': reservation_id,
+            'table_number': table_number,
+            'table_type': table_type,
+            'customer_id': customer_id
         }), 201
         
     except psycopg2.IntegrityError as e:
-        conn.rollback()
-        return jsonify({'error': 'Email already exists'}), 409
-    except Exception as e:
-        conn.rollback()
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/get-or-create-customer', methods=['POST'])
-def get_or_create_customer():
-    form = ReservationDetailsForm(data=request.form)
-    
-    if not form.validate():
-        return jsonify({'error': 'Invalid input', 'details': form.errors}), 400
-    
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        # Check if customer exists by email
-        cur.execute("""
-            SELECT id FROM customers WHERE email = %s
-        """, (form.email.data,))
-        
-        existing = cur.fetchone()
-        
-        if existing:
-            customer_id = existing['id']
+        if conn:
+            conn.rollback()
+        if cur:
             cur.close()
+        if conn:
             conn.close()
-            
-            return jsonify({
-                'success': True,
-                'customer_id': customer_id,
-                'existing': True,
-                'message': 'Existing customer found'
-            }), 200
-        
-        # Create new customer
-        cur.execute("""
-            INSERT INTO customers (first_name, last_name, email, phone, newsletter_signup, newsletter_verified)
-            VALUES (%s, %s, %s, %s, %s, FALSE)
-            RETURNING id
-        """, (
-            form.firstName.data,
-            form.lastName.data,
-            form.email.data,
-            form.phone.data or None,
-            form.newsletter.data
-        ))
-        
-        customer = cur.fetchone()
-        conn.commit()
-        customer_id = customer['id']
-        cur.close()
-        conn.close()
-        
+        print(f"INTEGRITY ERROR: {e}")
         return jsonify({
-            'success': True,
-            'customer_id': customer_id,
-            'existing': False,
-            'message': 'New customer created'
-        }), 201
+            'error': f'This time slot is no longer available: {str(e)}',
+            'success': False
+        }), 409
         
     except Exception as e:
-        conn.rollback()
-        return jsonify({'error': str(e)}), 500
+        if conn:
+            conn.rollback()
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+        print(f"ERROR: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e), 'success': False}), 500
 
-@app.route('/api/create-reservation', methods=['POST'])
-def create_reservation():
-    data = request.json
-    
-    required_fields = ['customer_id', 'date', 'time', 'party_size', 'table_number']
-    if not all(k in data for k in required_fields):
-        return jsonify({'error': 'Missing required fields'}), 400
-    
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        # Call the PostgreSQL function to create reservation
-        cur.execute("""
-            SELECT * FROM fn_create_reservation(
-                %s::integer,
-                %s::date,
-                %s::time,
-                %s::integer,
-                %s::integer,
-                'confirmed'::varchar
-            )
-        """, (
-            data['customer_id'],
-            data['date'],
-            data['time'],
-            data['party_size'],
-            data['table_number']
-        ))
-        
-        result = cur.fetchone()
-        conn.commit()
-        cur.close()
-        conn.close()
-        
-        if result['message'] == 'Reservation created successfully':
-            return jsonify({
-                'success': True,
-                'reservation_id': result['reservation_id'],
-                'message': result['message'],
-                'reservation': {
-                    'id': result['reservation_id'],
-                    'customer_id': result['customer_id'],
-                    'start_time': str(result['start_time']),
-                    'end_time': str(result['end_time']),
-                    'party_size': result['party_size'],
-                    'table_number': result['table_number'],
-                    'table_type': result['table_type'],
-                    'status': result['status']
-                }
-            }), 201
-        else:
-            return jsonify({
-                'success': False,
-                'error': result['message']
-            }), 400
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/create-reservation-auto', methods=['POST'])
-def create_reservation_auto():
-    data = request.json
-    
-    required_fields = ['customer_id', 'date', 'time', 'party_size']
-    if not all(k in data for k in required_fields):
-        return jsonify({'error': 'Missing required fields'}), 400
-    
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        # Call the auto-table function
-        cur.execute("""
-            SELECT * FROM fn_create_reservation_auto_table(
-                %s::integer,
-                %s::date,
-                %s::time,
-                %s::integer,
-                'confirmed'::varchar
-            )
-        """, (
-            data['customer_id'],
-            data['date'],
-            data['time'],
-            data['party_size']
-        ))
-        
-        result = cur.fetchone()
-        conn.commit()
-        cur.close()
-        conn.close()
-        
-        if result['message'] == 'Reservation created successfully':
-            return jsonify({
-                'success': True,
-                'reservation_id': result['reservation_id'],
-                'message': result['message'],
-                'reservation': {
-                    'id': result['reservation_id'],
-                    'customer_id': result['customer_id'],
-                    'start_time': str(result['start_time']),
-                    'end_time': str(result['end_time']),
-                    'party_size': result['party_size'],
-                    'table_number': result['table_number'],
-                    'table_type': result['table_type'],
-                    'status': result['status']
-                }
-            }), 201
-        else:
-            return jsonify({
-                'success': False,
-                'error': result['message']
-            }), 400
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/todays-reservations', methods=['GET'])
-def get_todays_reservations():
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        cur.execute("SELECT * FROM v_todays_reservations ORDER BY start_time")
-        reservations = cur.fetchall()
-        
-        cur.close()
-        conn.close()
-        
-        return jsonify({
-            'reservations': [
-                {
-                    'id': r['id'],
-                    'customer_id': r['customer_id'],
-                    'customer_name': f"{r['first_name']} {r['last_name']}",
-                    'email': r['email'],
-                    'phone': r['phone'],
-                    'start_time': str(r['start_time']),
-                    'end_time': str(r['end_time']),
-                    'party_size': r['party_size'],
-                    'table_number': r['table_number'],
-                    'table_type': r['table_type'],
-                    'status': r['status']
-                }
-                for r in reservations
-            ]
-        }), 200
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001, host='127.0.0.1')

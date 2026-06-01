@@ -60,6 +60,11 @@ function Reservation() {
   const selectedTimeLabel = timeOptions.find((slot) => slot.value === time)?.label || "";
   const selectedPeopleLabel = people && Number(people) === 1 ? "1 guest" : people ? `${people} guests` : "";
 
+  function isValidPhone(phone) {
+  // Basic validation: at least 10 digits
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 10;
+}
 async function handleFindTable(e) {
   e.preventDefault();
   
@@ -105,51 +110,38 @@ async function handleFindTable(e) {
     }));
   }
 
-  async function handleCompleteReservation(e) {
-    e.preventDefault();
-    if (!details.firstName || !details.lastName || !details.email) {
-      return;
+async function handleCompleteReservation(e) {
+  e.preventDefault();
+  
+  try {
+    const reservationData = {
+      date,
+      people,
+      time,
+      name: `${details.firstName} ${details.lastName}`,
+      email: details.email,
+      phone: details.phone,
+      textUpdates: details.textUpdates
+    };
+    
+    const reservationResponse = await fetch("http://localhost:5001/api/reserve-table", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(reservationData)
+    });
+    
+    const reservationResult = await reservationResponse.json();
+    if (!reservationResponse.ok || !reservationResult.success) {
+      throw new Error(reservationResult.error || "Failed to create reservation");
     }
-    try {
-      const formData = new FormData();
-      formData.append("firstName", details.firstName);
-      formData.append("lastName", details.lastName);
-      formData.append("email", details.email);
-      formData.append("phone", details.phone || "");
-      formData.append("occasion", details.occasion || "");
-      formData.append("newsletter", details.newsletter);
-      formData.append("textUpdates", details.textUpdates);
-      const customerResponse = await fetch("http://localhost:5001/api/get-or-create-customer", {
-        method: "POST",
-        body: formData,
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      });
-      const customerData = await customerResponse.json();
-      if (!customerResponse.ok) {
-        throw new Error(customerData.error || "Failed to create customer");
-      }
-      const customerId = customerData.customer_id;
-      const reservationData = {
-        customer_id: customerId,
-        date: date,
-        time: time,
-        party_size: parseInt(people),
-      };
-      const reservationResponse = await fetch("http://localhost:5001/api/create-reservation-auto", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reservationData),
-      });
-      const reservationResult = await reservationResponse.json();
-      if (!reservationResponse.ok || !reservationResult.success) {
-        throw new Error(reservationResult.error || "Failed to create reservation");
-      }
-      setStatus("confirmed");
-    } catch (error) {
-      console.error("Error creating reservation:", error);
-      alert("Failed to create reservation. Please try again.");
-    }
+    setStatus("confirmed");
+  } catch (error) {
+    console.error("Error creating reservation:", error);
+    alert("Failed to create reservation. Please try again.");
   }
+}
 
   return (
     <div className="reservation-page">
@@ -250,8 +242,18 @@ async function handleFindTable(e) {
               <input id="email" type="email" name="email" placeholder="Enter your e-mail address" value={details.email} onChange={handleDetailsChange} />
             </div>
             <div className="details-field">
-              <label htmlFor="phone">Phone number (optional)</label>
-              <input id="phone" type="text" name="phone" placeholder="Enter your phone number" value={details.phone} onChange={handleDetailsChange} />
+              <label htmlFor="phone">Phone number <span style={{color: '#666'}}>(optional)</span></label>
+              <input
+                id="phone"
+                type="text"
+                name="phone"
+                placeholder="Enter your phone number"
+                value={details.phone}
+                onChange={handleDetailsChange}
+              />
+              {!isValidPhone(details.phone) && details.phone && (
+                <small className="field-error">Please enter a valid phone number (at least 10 digits)</small>
+              )}
             </div>
             <div className="details-field">
               <label htmlFor="occasion">Occasion (optional)</label>
@@ -262,9 +264,15 @@ async function handleFindTable(e) {
               <input type="checkbox" name="newsletter" checked={details.newsletter} onChange={handleDetailsChange} />
               Please add me to your Newsletter
             </label>
-            <label className="checkbox-row">
-              <input type="checkbox" name="textUpdates" checked={details.textUpdates} onChange={handleDetailsChange} />
-              Yes, I want to get text updates and reminders about my reservation
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={details.textUpdates}
+                onChange={handleDetailsChange}
+                name="textUpdates"
+                disabled={!isValidPhone(details.phone)}
+              />
+              <span>Yes, I want to get text updates and reminders about my reservation</span>
             </label>
             <button type="submit" className="complete-reservation-btn">Complete my reservation</button>
           </form>
@@ -273,5 +281,6 @@ async function handleFindTable(e) {
     </div>
   );
 }
+
 
 export default Reservation;

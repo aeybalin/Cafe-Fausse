@@ -472,6 +472,21 @@
 
   
 }
+
+/* =========================================================
+   Checkbox for texting
+   Keep the disabled texting checkbox if no phone number
+========================================================= */
+.checkbox-label input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkbox-label input:disabled + span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* =========================================================
    TIME DROPDOWN ONLY
    Keep the disabled TIME field from fading
