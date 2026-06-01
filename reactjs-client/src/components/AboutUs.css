@@ -123,3 +123,44 @@
 .about-page {
   border-top: 20px solid #ffffff;
 }
+
+/* =========================================================
+   RESPONSIVE FIX - ABOUT PAGE STACKING
+========================================================= */
+@media (max-width: 768px) {
+
+  /* ✅ Main content (text + image) stacks */
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* ✅ Team section stacks */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* ✅ Reduce padding for smaller screens */
+  .about-page {
+    padding: 40px 20px;
+  }
+
+  /* ✅ Scale logos slightly */
+  .about-logo {
+    width: 250px;
+  }
+
+  .about-inline-logo img {
+    width: 200px;
+  }
+
+  /* ✅ Optional: slightly reduce text size for balance */
+  .about-text p {
+    font-size: 18px;
+  }
+
+  .team-card p {
+    font-size: 16px;
+  }
+}

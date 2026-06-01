@@ -3,8 +3,7 @@ import "./Gallery.css";
 
 /* =========================================================
    IMPORT GALLERY IMAGES
-   All files should be stored in:
-   src/assets/gallery/
+   All files should be stored in: src/assets/gallery/
 ========================================================= */
 import storeFront from "../assets/gallery/store-front.png";
 import risotto from "../assets/gallery/risotto.png";
@@ -15,11 +14,16 @@ import bruschetta from "../assets/gallery/bruschetta.png";
 import caesarSalad from "../assets/gallery/caesar-salad.png";
 import event from "../assets/gallery/event.png";
 
+/* =========================================================
+   IMPORT JSON DATA
+========================================================= */
+import awardsData from "../data/awards.json";
+import reviewsData from "../data/reviews.json";
+
 function Gallery() {
   /* =====================================================
      IMAGE LIST
      This is the order in which the carousel displays images
-     You can add or remove images here later
   ====================================================== */
   const images = [
     storeFront,
@@ -34,19 +38,16 @@ function Gallery() {
 
   /* =====================================================
      CURRENT IMAGE INDEX
-     Controls which image is shown in the main gallery window
   ====================================================== */
   const [currentIndex, setCurrentIndex] = useState(0);
 
   /* =====================================================
      LIGHTBOX STATE
-     When true, the current image opens enlarged in overlay
   ====================================================== */
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   /* =====================================================
      GO TO PREVIOUS IMAGE
-     If at the first image, loop to the last one
   ====================================================== */
   function goToPrevious() {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -54,7 +55,6 @@ function Gallery() {
 
   /* =====================================================
      GO TO NEXT IMAGE
-     If at the last image, loop to the first one
   ====================================================== */
   function goToNext() {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -62,17 +62,15 @@ function Gallery() {
 
   return (
     <div className="gallery-page">
-
       {/* =====================================================
           MAIN GALLERY IMAGE AREA
       ====================================================== */}
       <div className="gallery-main">
-
         {/* Main image container */}
         <div className="gallery-image-frame">
           <img
             src={images[currentIndex]}
-            alt={`Gallery slide ${currentIndex + 1}`}
+            alt={`Gallery ${currentIndex + 1}`}
             className="gallery-main-image"
             onClick={() => setIsLightboxOpen(true)}
           />
@@ -80,20 +78,14 @@ function Gallery() {
 
         {/* =================================================
             CAROUSEL CONTROLS
-            Left arrow / dots / right arrow
-        ================================================== */}
+        ================================================= */}
         <div className="gallery-controls">
-
           {/* Left arrow */}
-          <button
-            className="gallery-arrow"
-            onClick={goToPrevious}
-            aria-label="Previous image"
-          >
-            &#8249;
+          <button className="gallery-arrow" onClick={goToPrevious}>
+            ‹
           </button>
 
-          {/* dots */}
+          {/* Dots */}
           <div className="gallery-dots">
             {images.map((_, index) => (
               <button
@@ -106,92 +98,79 @@ function Gallery() {
           </div>
 
           {/* Right arrow */}
-          <button
-            className="gallery-arrow"
-            onClick={goToNext}
-            aria-label="Next image"
-          >
-            &#8250;
+          <button className="gallery-arrow" onClick={goToNext}>
+            ›
           </button>
         </div>
       </div>
 
-        {/* =====================================================
-            LIGHTBOX OVERLAY
-            Click background to close
-        ====================================================== */}
-        {isLightboxOpen && (
+      {/* =====================================================
+          LIGHTBOX OVERLAY
+      ====================================================== */}
+      {isLightboxOpen && (
         <div
-            className="lightbox-overlay"
-            onClick={() => setIsLightboxOpen(false)}
+          className="lightbox-overlay"
+          onClick={() => setIsLightboxOpen(false)}
         >
-            {/* lightbox content wrapper stops background close */}
-            <div
+          <div
             className="lightbox-content"
             onClick={(e) => e.stopPropagation()}
-            >
+          >
             {/* LEFT ARROW */}
             <button
-                className="lightbox-arrow lightbox-arrow-left"
-                onClick={goToPrevious}
-                aria-label="Previous image"
+              className="lightbox-arrow lightbox-arrow-left"
+              onClick={goToPrevious}
             >
-                &#8249;
+              ‹
             </button>
 
             {/* ENLARGED IMAGE */}
             <img
-                src={images[currentIndex]}
-                alt={`Enlarged Gallery ${currentIndex + 1}`}
-                className="lightbox-image"
+              src={images[currentIndex]}
+              alt={`Enlarged ${currentIndex + 1}`}
+              className="lightbox-image"
             />
 
             {/* RIGHT ARROW */}
             <button
-                className="lightbox-arrow lightbox-arrow-right"
-                onClick={goToNext}
-                aria-label="Next image"
+              className="lightbox-arrow lightbox-arrow-right"
+              onClick={goToNext}
             >
-                &#8250;
+              ›
             </button>
-            </div>
+          </div>
         </div>
-        )}
-
+      )}
 
       {/* =====================================================
           BOTTOM 2-COLUMN SECTION
-          Awards + Reviews
+          Awards + Reviews from JSON
       ====================================================== */}
       <div className="gallery-bottom-grid">
-
         {/* ================= AWARDS ================= */}
         <div className="gallery-info-card">
-          <h2 className="gallery-info-title">AWARDS</h2>
+          <h3 className="gallery-info-title">AWARDS</h3>
 
-          <p className="gallery-info-text">Culinary Excellence Award – 2022</p>
-          <p className="gallery-info-text">Restaurant of the Year – 2023</p>
-          <p className="gallery-info-text">
-            Best Fine Dining Experience – Foodie Magazine, 2023
-          </p>
+          {awardsData.awards.map((award, index) => (
+            <p key={index} className="gallery-info-text">
+              {award.name}
+              {award.source ? ` – ${award.source}` : ""} – {award.year}
+            </p>
+          ))}
         </div>
 
         {/* ================= CUSTOMER REVIEWS ================= */}
         <div className="gallery-info-card">
-          <h2 className="gallery-info-title">CUSTOMER REVIEWS</h2>
+          <h3 className="gallery-info-title">CUSTOMER REVIEWS</h3>
 
-          <p className="gallery-review-quote">
-            “Exceptional ambiance and unforgettable flavors.”
-          </p>
-          <p className="gallery-review-source">Gourmet Review</p>
-
-          <p className="gallery-review-quote">
-            “A must-visit restaurant for food enthusiasts.”
-          </p>
-          <p className="gallery-review-source">The Daily Bite</p>
+          {reviewsData.reviews.map((review, index) => (
+            <div key={index}>
+              <p className="gallery-review-quote">“{review.quote}”</p>
+              <p className="gallery-review-source">{review.source}</p>
+            </div>
+          ))}
         </div>
       </div>
-
     </div>
   );
 }
