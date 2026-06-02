@@ -15,3 +15,64 @@
 
   border-top: 2px solid var(--color-gold);
 }
+
+/* =========================================================
+   FLOATING NEWSLETTER BUTTON (RIGHT SIDE)
+========================================================= */
+.newsletter-float-button {
+  position: fixed;
+
+  right: 25px;     /* ✅ right edge of screen */
+  bottom: 25px;    /* ✅ slightly above footer */
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+  border: 1.5px solid #D4AF37;
+
+  background-color: #3A2F2B;  /* ✅ dark taupe */
+
+  color: #D4AF37;
+  font-size: 24px;            /* ✅ larger envelope */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 3000;
+}
+
+/* =========================================================
+   TOOLTIP
+========================================================= */
+.newsletter-tooltip {
+  position: absolute;
+  right: 55px;
+  bottom: 50%;
+  transform: translateY(50%);
+
+  background-color: #3A2F2B;
+  color: #D4AF37;
+
+  padding: 5px 9px;
+  font-size: 12px;
+
+  border-radius: 4px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease;
+}
+
+.newsletter-float-button:hover .newsletter-tooltip {
+  opacity: 1;
+}
+
+.newsletter-float-button:hover {
+  background-color: #3A2F2B;   /* ✅ keep same dark taupe */
+  color: #D4AF37;              /* ✅ keep gold */
+}
