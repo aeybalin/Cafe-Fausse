@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import logo from "../assets/logo.png";
 import dish from "../assets/salmon.png";
 
-function Home() {
-  // =========================================================
-  // NEWSLETTER POPUP STATE
-  // Starts hidden, then appears after 5 seconds
-  // =========================================================
-  const [showNewsletter, setShowNewsletter] = useState(false);
+function Home({ setShowNewsletter }) {
 
   // =========================================================
   // DELAY POPUP FOR 5 SECONDS
   // =========================================================
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNewsletter(true);
-    }, 5000);
+ useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowNewsletter(true);
+  }, 5000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  return () => clearTimeout(timer);
+}, [setShowNewsletter]);
 
   return (
     <div className="home-container">
@@ -57,82 +52,10 @@ function Home() {
       </div>
 
       {/* =====================================================
-          NEWSLETTER POPUP
+          NEWSLETTER POPUP moved to app.js since we are adding 
+          to footer also
       ====================================================== */}
-      {showNewsletter && (
-        <div className="newsletter-overlay">
-          <div className="newsletter-modal">
-
-            {/* CLOSE BUTTON */}
-            <button
-              type="button"
-              className="newsletter-close"
-              onClick={() => setShowNewsletter(false)}
-              aria-label="Close newsletter popup"
-            >
-              ✕
-            </button>
-
-            {/* LOGO */}
-            <div className="newsletter-logo-wrap">
-              <img src={logo} alt="Café Fausse logo" className="newsletter-logo" />
-            </div>
-
-            {/* SUBTITLE */}
-            <h3 className="newsletter-subtitle">
-              Sign up for our Newsletter!
-            </h3>
-
-            {/* FORM */}
-            <form className="newsletter-form">
-
-              {/* FIRST / LAST NAME ROW */}
-              <div className="newsletter-row">
-                <div className="newsletter-field">
-                  <label>First Name*</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your first name"
-                  />
-                </div>
-
-                <div className="newsletter-field">
-                  <label>Last Name*</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your last name"
-                  />
-                </div>
-              </div>
-
-              {/* EMAIL */}
-              <div className="newsletter-field full-width">
-                <label>E-mail*</label>
-                <input
-                  type="email"
-                  placeholder="Enter your e-mail address"
-                />
-              </div>
-
-              {/* PHONE */}
-              <div className="newsletter-field full-width">
-                <label>Phone number</label>
-                <input
-                  type="text"
-                  placeholder="Enter your phone number (optional)"
-                />
-              </div>
-
-              {/* NOTE */}
-              <p className="newsletter-note">
-                We respect your inbox<br />
-                Unsubscribe anytime
-              </p>
-
-            </form>
-          </div>
-        </div>
-      )}
+      
 
     </div>
   );
