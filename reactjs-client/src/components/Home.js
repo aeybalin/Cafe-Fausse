@@ -6,27 +6,30 @@ import dish from "../assets/salmon.png";
 function Home({ setShowNewsletter }) {
 
   // =========================================================
-  // DELAY POPUP FOR 5 SECONDS
+  // DELAY POPUP FOR 5 SECONDS - ONLY ONCE PER USER
   // =========================================================
- useEffect(() => {
-  const timer = setTimeout(() => {
-    setShowNewsletter(true);
-  }, 5000);
+  useEffect(() => {
+    // Check if user has already seen the popup
+    const hasSeenNewsletter = localStorage.getItem('newsletterShown');
+    
+    if (!hasSeenNewsletter) {
+      const timer = setTimeout(() => {
+        setShowNewsletter(true);
+        // Mark as shown so it won't pop up again
+        localStorage.setItem('newsletterShown', 'true');
+      }, 5000);
 
-  return () => clearTimeout(timer);
-}, [setShowNewsletter]);
+      return () => clearTimeout(timer);
+    }
+  }, [setShowNewsletter]);
 
   return (
     <div className="home-container">
-
       <div className="home-content">
-
-        {/* LEFT IMAGE */}
         <div className="home-image">
           <img src={dish} alt="Featured Dish" />
         </div>
 
-        {/* RIGHT TEXT */}
         <div className="home-text">
           <img src={logo} alt="Café Fausse Logo" className="home-logo" />
 
@@ -48,15 +51,7 @@ function Home({ setShowNewsletter }) {
             Sunday: 5:00 PM – 9:00 PM
           </p>
         </div>
-
       </div>
-
-      {/* =====================================================
-          NEWSLETTER POPUP moved to app.js since we are adding 
-          to footer also
-      ====================================================== */}
-      
-
     </div>
   );
 }

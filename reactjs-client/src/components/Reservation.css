@@ -279,6 +279,14 @@
   border-color: #2f2f2f;  
 }  
 
+.find-table-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #ccc;
+  border-color: #ccc;
+  color: #666;
+}
+
 /* =========================================================  
    SUMMARY ROW  
 ========================================================= */  
@@ -513,5 +521,51 @@
 ========================================================= */
 #time:disabled {
   opacity: 1 !important;
+}
+
+/* =========================================================
+   FIX: ADD A CHANGE RESERVATION BUTTON
+========================================================= */
+/* =========================================================
+   CHANGE RESERVATION BUTTON & NEW RESERVATION BUTTON
+   Using same styling as find-table-btn and complete-reservation-btn
+========================================================= */
+
+.reservation-summary-with-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin: 8px 0 28px;
+}
+
+.change-reservation-btn {
+  /* Same styles as find-table-btn but transparent */
+  height: 62px;
+  min-width: auto;
+  border: 2px solid #111;
+  background: transparent;
+  color: #111;
+  border-radius: 0;
+  padding: 0 26px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;  /* ✅ Forces all caps */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  margin: 0;
+}
+
+.change-reservation-btn:hover {
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #fff;
 }
 

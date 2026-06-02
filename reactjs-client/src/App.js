@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Home from "./components/Home";
 import Menu from "./components/Menu";
@@ -13,9 +13,6 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  // =========================================================
-  // ✅ GLOBAL NEWSLETTER STATE
-  // =========================================================
   const [showNewsletter, setShowNewsletter] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -25,9 +22,31 @@ function App() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  
+  // Track if we've already shown the popup in this session
+  const hasShownInSession = useRef(false);
 
-  // ✅ function used by footer + homepage
+  // Check if user has already seen the popup (persistent across sessions)
+  useEffect(() => {
+    const hasSeenNewsletter = localStorage.getItem('newsletterShown');
+    
+    // Only show if never seen before AND not shown in this session yet
+    if (!hasSeenNewsletter && !hasShownInSession.current) {
+      const timer = setTimeout(() => {
+        setShowNewsletter(true);
+        hasShownInSession.current = true;
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const markNewsletterShown = () => {
+    localStorage.setItem('newsletterShown', 'true');
+    hasShownInSession.current = true;
+  };
+
   const openNewsletter = () => {
+    // Always allow footer to open popup (user clicked it intentionally)
     setShowNewsletter(true);
     setError("");
     setSubmitted(false);
@@ -35,13 +54,9 @@ function App() {
 
   const closeNewsletter = () => {
     setShowNewsletter(false);
-    // Reset form when closed
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    });
+    // Mark as shown so auto-popup won't show again
+    localStorage.setItem('newsletterShown', 'true');
+    setFormData({ firstName: "", lastName: "", email: "", phone: "" });
     setSubmitted(false);
     setError("");
   };
@@ -72,6 +87,7 @@ function App() {
       }
 
       setSubmitted(true);
+      markNewsletterShown();
     } catch (err) {
       setError(err.message || "Failed to sign up. Please try again.");
     }

@@ -41,13 +41,12 @@ function Reservation() {
     return `${hrs12}:${String(mins).padStart(2, "0")} ${suffix}`;
   }
 
-  // Generate raw 15-minute slots (same logic as before)
   const rawTimeSlots = useMemo(() => {
     if (!date) return [];
     const selected = new Date(`${date}T12:00:00`);
-    const day = selected.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-    const startMinutes = 17 * 60; // 5pm
-    const endMinutes = day === 0 ? 19 * 60 : 21 * 60; // Sun closes 7pm, others 9pm
+    const day = selected.getDay();
+    const startMinutes = 17 * 60;
+    const endMinutes = day === 0 ? 19 * 60 : 21 * 60;
 
     const slots = [];
     for (let mins = startMinutes; mins < endMinutes; mins += 15) {
@@ -61,7 +60,6 @@ function Reservation() {
     return slots;
   }, [date]);
 
-  // Filter raw slots to only those that are available in the database
   const timeOptions = useMemo(() => {
     if (!date || availableTimes.length === 0) return [];
     return rawTimeSlots.filter((slot) => availableTimes.includes(slot.value));
@@ -76,7 +74,6 @@ function Reservation() {
     return digits.length >= 10;
   }
 
-  // Load available times when date and people change
   useEffect(() => {
     const loadAvailableTimes = async () => {
       if (!date || !people) {
@@ -120,6 +117,14 @@ function Reservation() {
 
     loadAvailableTimes();
   }, [date, people]);
+
+  function handleResetSearch() {
+    // Reset to search form, clear time, keep date and people
+    setStatus("idle");
+    setTime("");
+    setAvailableTables([]);
+    // Don't clear availableTimes - they'll be refetched when time dropdown opens
+  }
 
   async function handleFindTable(e) {
     e.preventDefault();
@@ -233,6 +238,7 @@ function Reservation() {
                     setDate(e.target.value);
                     setTime("");
                   }}
+                  min={new Date().toISOString().split('T')[0]}
                   className="hidden-date-input"
                 />
               </div>
@@ -277,7 +283,12 @@ function Reservation() {
                 <label className="search-button-label" aria-hidden="true">
                   spacer
                 </label>
-                <button type="submit" className="find-table-btn">
+                <button
+                  type="button"
+                  className="find-table-btn"
+                  disabled={!date || !time || !people}
+                  onClick={handleFindTable}
+                >
                   FIND A TABLE
                 </button>
               </div>
@@ -288,11 +299,24 @@ function Reservation() {
           <>
             <img src={logo} alt="Café Fausse logo" className="reservation-logo" />
             <h1 className="reservation-subtitle">RESERVATION</h1>
-            <div className="reservation-summary">
-              <div className="summary-item">📅 {formatDisplayDate(date)}</div>
-              <div className="summary-item">👤 {selectedPeopleLabel}</div>
-              <div className="summary-item">🕒 {selectedTimeLabel}</div>
+            <div className="reservation-summary-with-btn">
+              <div className="reservation-summary">
+                <div className="summary-item">📅 {formatDisplayDate(date)}</div>
+                <div className="summary-item">👤 {selectedPeopleLabel}</div>
+                <div className="summary-item">🕒 {selectedTimeLabel}</div>
+              </div>
+              
+              {/* CHANGE DATE/TIME BUTTON */}
+              <button
+                type="button"
+                className="change-reservation-btn"
+                onClick={handleResetSearch}
+              >
+                NEW SEARCH
+              </button>
             </div>
+
+            
             <div className="dress-code-box">
               <p>
                 <strong>Dress code:</strong> You will be asked to be dressed elegantly and
@@ -320,6 +344,12 @@ function Reservation() {
               A confirmation email has been sent to you. Please contact us with any
               modification.
             </div>
+            
+            {/* NEW RESERVATION LINK */}
+            <Link to="/reservation" className="new-reservation-btn">
+              ✦ Make a New Reservation
+            </Link>
+            
             <Link to="/" className="secondary-link-btn">
               GO HOME
             </Link>
