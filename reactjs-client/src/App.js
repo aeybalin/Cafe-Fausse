@@ -17,15 +17,65 @@ function App() {
   // ✅ GLOBAL NEWSLETTER STATE
   // =========================================================
   const [showNewsletter, setShowNewsletter] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   // ✅ function used by footer + homepage
   const openNewsletter = () => {
     setShowNewsletter(true);
+    setError("");
+    setSubmitted(false);
   };
 
   const closeNewsletter = () => {
     setShowNewsletter(false);
+    // Reset form when closed
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    });
+    setSubmitted(false);
+    setError("");
   };
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:5001/api/newsletter-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to sign up");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || "Failed to sign up. Please try again.");
+    }
+  }
 
   return (
     <>
@@ -75,44 +125,87 @@ function App() {
 
             {/* SUBTITLE */}
             <h4 className="newsletter-subtitle">
-              Sign up for our Newsletter!
+              {submitted ? "Thank You!" : "Sign up for our Newsletter!"}
             </h4>
 
+            {/* SUCCESS MESSAGE */}
+            {submitted && (
+              <div className="newsletter-success">
+                <p>You've successfully signed up for our newsletter!</p>
+                <p>You'll be the first to know about special events and promotions.</p>
+                <button className="newsletter-confirm-btn" onClick={closeNewsletter}>
+                  Close
+                </button>
+              </div>
+            )}
+
             {/* FORM  */}
-            <div className="newsletter-form">
+            <form className="newsletter-form" onSubmit={handleSubmit}>
 
-            {/* FIRST / LAST NAME ROW */}
-            <div className="newsletter-row">
-              <div className="newsletter-field">
-                <label>First Name*</label>
-                <input type="text" />
-              </div>
+                {/* ERROR MESSAGE */}
+                {error && <div className="newsletter-error">{error}</div>}
 
-              <div className="newsletter-field">
-                <label>Last Name*</label>
-                <input type="text" />
-              </div>
-            </div>
+                {/* FIRST / LAST NAME ROW */}
+                <div className="newsletter-row">
+                  <div className="newsletter-field">
+                    <label>First Name*</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
 
-            {/* EMAIL */}
-            <div className="newsletter-field full-width">
-              <label>E-mail*</label>
-              <input type="email" />
-            </div>
+                  <div className="newsletter-field">
+                    <label>Last Name*</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
 
-            {/* PHONE */}
-            <div className="newsletter-field full-width">
-              <label>Phone number (optional) </label>
-              <input type="text" />
-            </div>
+                {/* EMAIL */}
+                <div className="newsletter-field full-width">
+                  <label>E-mail*</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-          </div>
+                {/* PHONE */}
+                <div className="newsletter-field full-width">
+                  <label>Phone number (optional) </label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <p className="newsletter-note">
-              We respect your inbox
-              <br />
-              Unsubscribe anytime
-            </p>
+                <button type="submit" className="newsletter-submit-btn">
+                  Sign Up
+                </button>
+              </form>
+
+
+            {!submitted && (
+              <p className="newsletter-note">
+                We respect your inbox
+                <br />
+                Unsubscribe anytime
+              </p>
+            )}
           </div>
         </div>
       )}
