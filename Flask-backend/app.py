@@ -167,8 +167,15 @@ def find_available_times():
 
 @app.route('/api/reserve-table', methods=['POST'])
 def reserve_table():
-    data = request.get_json()
     
+    print("=" * 50)  # Add this
+    print("RESERVE-TABLE ENDPOINT CALLED!")  # Add this
+    data = request.get_json()
+    print(f"RECEIVED DATA: {data}")  # Add this
+    print(f"firstName = {data.get('firstName')}")  # Add this
+    print(f"lastName = {data.get('lastName')}")  # Add this
+    print("=" * 50)  # Add this
+
     date_str = data.get('date')
     people_str = data.get('people')
     time_str = data.get('time')

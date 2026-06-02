@@ -176,6 +176,8 @@ function Reservation() {
         time,
         occasion: details.occasion,
         name: `${details.firstName} ${details.lastName}`,
+        firstName: details.firstName,  // ✅ Add this
+        lastName: details.lastName,    // ✅ Add this
         email: details.email,
         phone: details.phone,
         textUpdates: details.textUpdates,
@@ -345,14 +347,34 @@ function Reservation() {
               modification.
             </div>
             
-            {/* NEW RESERVATION LINK */}
-            <Link to="/reservation" className="new-reservation-btn">
-              ✦ Make a New Reservation
-            </Link>
-            
-            <Link to="/" className="secondary-link-btn">
-              GO HOME
-            </Link>
+            {/* RESERVATION LINKS - MAKE A NEW RESERVATION & GO HOME */}
+            <div className="reservation-links">
+              <button
+                type="button"
+                className="make-new-reservation-btn"
+                onClick={() => {
+                  setStatus("idle");
+                  setDate("");
+                  setTime("");
+                  setPeople("");
+                  setAvailableTables([]);
+                  setDetails({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    occasion: "",
+                    textUpdates: false
+                  });
+                }}
+              >
+                NEW RESERVATION
+              </button>
+              
+              <Link to="/" className="go-home-btn">
+                GO HOME
+              </Link>
+            </div>
           </>
         )}
       </section>
