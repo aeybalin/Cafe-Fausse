@@ -1,13 +1,11 @@
 /* =========================================================
    PAGE BACKGROUND
-   Keep this white so it contrasts with navbar/footer
+   Keep this light so it contrasts with navbar/footer
 ========================================================= */
 .gallery-page {
-  
   background: var(--color-parchment);
   color: var(--color-text-on-parchment);
-
-  padding: 40px 80px 60px;
+  padding: 40px 80px 0; /* removed bottom padding to fix gap above footer */
 }
 
 /* =========================================================
@@ -15,48 +13,36 @@
 ========================================================= */
 .gallery-main {
   max-width: 1100px;
-  margin: 0 auto 60px;
+  margin: 0 auto 60px; /* keeps space between the image and black section */
   text-align: center;
 }
 
 /* =========================================================
    IMAGE FRAME
-   Gold border to match app branding
 ========================================================= */
 .gallery-image-frame {
-  width: 380px;          /* ✅ fixed width */
-  height: 260px;         /* ✅ fixed height */
-
-  margin: 0 auto;        /* ✅ center frame */
-
-  
+  width: 700px;
+  height: 466px;
+  margin: 0 auto;
   border: 3px solid var(--color-gold);
   background: var(--color-parchment-light);
-
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  text-align: center;      /* ✅ centers content */
-
-  overflow: hidden;      /* ✅ hide overflow */
+  text-align: center;
+  overflow: hidden;
 }
 
-
-/* Main gallery image */
 .gallery-main-image {
   width: 100%;
   height: 100%;
-
-  object-fit: cover;   /* ✅ KEY: fills frame consistently */
+  object-fit: cover;
   display: block;
-
-  cursor: pointer;
+  cursor: zoom-in;   /* ✅ replaces hand with magnifying glass */
 }
 
 /* =========================================================
    CAROUSEL CONTROLS
-   Arrows under image + dots navigation
 ========================================================= */
 .gallery-controls {
   display: flex;
@@ -66,26 +52,21 @@
   margin-top: 24px;
 }
 
-/* Left / right arrows */
 .gallery-arrow {
   background: transparent;
   border: none;
   font-size: 40px;
   line-height: 1;
   cursor: pointer;
-
-  color: #bbb;       /* ✅ light gray */
+  color: #bbb;
   padding: 0;
 }
 
-
-/* Dots wrapper */
 .gallery-dots {
   display: flex;
   gap: 18px;
 }
 
-/* Individual dot */
 .gallery-dot {
   width: 20px;
   height: 20px;
@@ -95,14 +76,12 @@
   cursor: pointer;
 }
 
-/* Active dot */
 .gallery-dot.active {
   background: #111;
 }
 
 /* =========================================================
    LIGHTBOX
-   Dark overlay + enlarged image
 ========================================================= */
 .lightbox-overlay {
   position: fixed;
@@ -122,10 +101,7 @@
   border: 2px solid #d4af37;
   background: #fff;
 }
-/* =========================================================
-   LIGHTBOX CONTENT WRAPPER
-   Keeps arrows + image grouped together
-========================================================= */
+
 .lightbox-content {
   position: relative;
   display: flex;
@@ -134,92 +110,238 @@
   gap: 24px;
 }
 
-/* =========================================================
-   LIGHTBOX ARROWS
-========================================================= */
 .lightbox-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2100;
-
   background: transparent;
   border: none;
-
-  color: #fff;        /* ✅ white in overlay */
+  color: #fff;
   font-size: 54px;
   line-height: 1;
-
   cursor: pointer;
   padding: 0 10px;
 }
 
-
-
 .lightbox-arrow-left {
-  left: 40px;    /* ✅ fixed to screen */
+  left: 40px;
 }
 
 .lightbox-arrow-right {
-  right: 40px;   /* ✅ fixed to screen */
+  right: 40px;
 }
 
-
-/* optional positioning helper classes */
 .lightbox-arrow-left,
 .lightbox-arrow-right {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.lightbox-close {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 40px;
+  color: #fff;  /* ✅ matches arrows */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2200;
 
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.lightbox-close:hover,
+.lightbox-close:focus,
+.lightbox-close:active,
+.lightbox-close:focus-visible {
+  color: #fff;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   AWARDS + REVIEWS FULL WIDTH SECTION
+========================================================= */
+.gallery-awards-reviews-section {
+  position: relative;   
+
+  background-color: #000;
+  color: #f9f4ec;
+
+  padding: 60px 80px 40px;
+
+  margin-left: -80px;
+  margin-right: -80px;
+
+  margin-bottom: 0;
+
+  overflow: hidden;    
+}
+
+
+
+footer {
+  position: relative;
+  z-index: 10;
+}
+/* Background image watermark */
+.gallery-awards-reviews-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../assets/gallery/gallery-awards-bg.png") center center / 78% auto no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+/* Keep content above background */
+.gallery-awards-reviews-section .gallery-bottom-grid {
+  position: relative;
+  z-index: 1;
+}
 
 /* =========================================================
    BOTTOM GRID
-   Awards + Reviews side by side
 ========================================================= */
 .gallery-bottom-grid {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
   gap: 80px;
+  align-items: start;
 }
 
-/* individual bottom cards */
 .gallery-info-card {
+  width: 100%;
+}
+
+
+.gallery-info-card-awards,
+.gallery-info-card-reviews {
+  max-width: 440px; /* âœ… same width = alignment */
+}
+
+.gallery-info-card-awards {
+  margin-left: auto;
+  margin-right: 80px;
+  text-align: right;
+}
+
+.gallery-info-card-reviews {
+  margin-right: auto;
   text-align: left;
 }
 
-/* headings */
+
+/* =========================================================
+   HEADINGS
+========================================================= */
 .gallery-info-title {
   font-size: 34px;
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
+  color: var(--color-gold);
+  letter-spacing: 0.03em;
 }
 
-/* awards text */
-.gallery-info-text {
+/* =========================================================
+   AWARDS
+========================================================= */
+.gallery-awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 0;
+}
+
+
+.gallery-award-item {
+  display: grid;                       
+  grid-template-columns: 1fr 80px;     
+  align-items: center;
+  gap: 20px;
+}
+
+
+
+
+.award-logo {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: transparent;
+  
+}
+
+.gallery-award-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 60px
+}
+
+
+.gallery-award-name {
+  margin: 0 0 4px 0;
   font-size: 18px;
-  margin-bottom: 26px;
-  line-height: 1.6;
+  line-height: 1.4;
+  color: #f9f4ec;
 }
 
-/* reviews */
+.gallery-award-meta {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+
+  color: var(--color-gold); 
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  letter-spacing: 0.02em;
+}
+.gallery-info-card-awards .gallery-info-title {
+  text-align: center;
+}
+/* =========================================================
+   REVIEWS
+========================================================= */
+.gallery-review-block {
+  margin-bottom: 30px;
+}
+
+.gallery-review-block:last-child {
+  margin-bottom: 0;
+}
+
 .gallery-review-quote {
   font-size: 18px;
   font-style: italic;
-  line-height: 1.6;
-  margin-bottom: 8px;
+  line-height: 1.7;
+  margin: 0 0 10px 0;
+  color: #f9f4ec;
 }
 
 .gallery-review-source {
-  font-size: 16px;
-  font-style: italic;
-  margin-bottom: 28px;
+  font-size: 15px;
+  color: var(--color-gold);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
 }
+
 /* =========================================================
-   REMOVE ALL BUTTON HOVER / FOCUS / ACTIVE VISUALS
-   Keeps arrows and dots static with no blue highlight
+   REMOVE HOVER / FOCUS / ACTIVE VISUALS
 ========================================================= */
 .gallery-arrow,
 .gallery-dot,
@@ -233,7 +355,7 @@
 .gallery-arrow:focus,
 .gallery-arrow:active,
 .gallery-arrow:focus-visible {
-  color: #bbb;                 /* keep light gray */
+  color: #bbb;
   background: transparent;
   border: none;
   outline: none;
@@ -244,7 +366,7 @@
 .lightbox-arrow:focus,
 .lightbox-arrow:active,
 .lightbox-arrow:focus-visible {
-  color: #fff;                 /* keep white in overlay */
+  color: #fff;
   background: transparent;
   border: none;
   outline: none;
@@ -255,7 +377,7 @@
 .gallery-dot:focus,
 .gallery-dot:active,
 .gallery-dot:focus-visible {
-  background: #cfcfcf;         /* keep dots gray */
+  background: #cfcfcf;
   border: none;
   outline: none;
   box-shadow: none;
@@ -274,16 +396,43 @@
 ========================================================= */
 @media (max-width: 980px) {
   .gallery-page {
-    padding: 30px 20px 50px;
+    padding: 30px 20px 0; /* removed mobile bottom padding too */
+  }
+
+  .gallery-image-frame {
+    width: 100%;
+    max-width: 520px;
+    height: 355px;
+  }
+
+  .gallery-awards-reviews-section {
+    padding: 60px 24px 0;
+  }
+
+  .gallery-awards-reviews-section::before {
+    background-size: 92% auto;
+    opacity: 0.12;
   }
 
   .gallery-bottom-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 46px;
   }
 
-  .gallery-main-image {
-    max-height: 420px;
+  .gallery-info-card-awards,
+  .gallery-info-card-reviews {
+    max-width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .gallery-award-item {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .gallery-award-text-block {
+    align-items: flex-start;
   }
 
   .gallery-controls {
