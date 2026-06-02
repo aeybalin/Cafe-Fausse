@@ -2,11 +2,11 @@
   "reviews": [
     {
       "quote": "Exceptional ambiance and unforgettable flavors.",
-      "source": "Gourmet Review"
+      "source": "- Gourmet Review"
     },
     {
       "quote": "A must-visit restaurant for food enthusiasts.",
-      "source": "The Daily Bite"
+      "source": "- The Daily Bite"
     }
   ]
 }
