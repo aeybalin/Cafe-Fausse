@@ -255,28 +255,31 @@
 
 
 .find-table-btn {  
-  height: 62px;  
-  min-width: 240px;  
-  border: 2px solid #111;  
-  background: #111;  
-  color: #fff;  
-  border-radius: 0;  
-  padding: 0 26px;  
-  font-size: 20px;  
-  font-weight: 600;  
-  line-height: 1;  
-  letter-spacing: 0.5px;  
-  display: inline-flex;  
-  align-items: center;  
-  justify-content: center;  
-  white-space: nowrap;  
-  cursor: pointer;  
-  transition: background-color 0.18s ease, border-color 0.18s ease;  
+  height: 62px;
+  min-width: 280px;
+  border: 2px solid #111;
+  background: transparent;
+  color: #111;
+  border-radius: 0;
+  padding: 0 26px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }  
 
 .find-table-btn:hover {  
-  background: #2f2f2f;  
-  border-color: #2f2f2f;  
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #fff;
 }  
 
 .find-table-btn:disabled {
@@ -392,22 +395,31 @@
 
 .complete-reservation-btn {  
   width: 100%;  
-  margin-top: 18px;  
-  height: 92px;  
-  border: 2px solid #111;  
-  background: #111;  
-  color: #fff;  
-  font-size: 22px;  
-  font-weight: 600;  
-  text-align: left;  
-  padding: 0 36px;  
-  cursor: pointer;  
-  transition: background-color 0.18s ease, border-color 0.18s ease;  
+  height: 62px;
+  min-width: 280px;
+  border: 2px solid #111;
+  background: transparent;
+  color: #111;
+  border-radius: 0;
+  padding: 0 26px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }  
 
 .complete-reservation-btn:hover {  
-  background: #2f2f2f;  
-  border-color: #2f2f2f;  
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #fff;
 }  
 
 /* =========================================================  

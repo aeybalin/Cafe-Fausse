@@ -98,3 +98,102 @@ body {
   padding-bottom: 70px;
 }
 
+.newsletter-submit-btn {
+  /* Same styles as find-table-btn but transparent */
+  height: 62px;
+  min-width: auto;
+  border: 2px solid #111;
+  background: transparent;
+  color: #111;
+  border-radius: 0;
+  padding: 0 26px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;  /* ✅ Forces all caps */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  margin: 0;
+}
+
+.newsletter-submit-btn:hover {
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #fff;
+}
+/* Success message styling */
+.newsletter-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.newsletter-success p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Separate Close button styling */
+.newsletter-close-btn {
+  /* Same styles as find-table-btn but transparent */
+  height: 62px;
+  min-width: auto;
+  border: 2px solid #111;
+  background: transparent;
+  color: #111;
+  border-radius: 0;
+  padding: 0 26px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;  /* ✅ Forces all caps */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  margin: 0;
+}
+
+.newsletter-close-btn:hover {
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #fff;
+}
+
+/* Submitted info - static text display */
+.newsletter-submitted-info {
+  padding: 20px 0;
+  text-align: left;
+}
+
+.newsletter-info-row {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.newsletter-info-row label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.newsletter-info-text {
+  font-size: 16px;
+  color: #111;
+  margin: 0;
+  font-weight: 500;
+}

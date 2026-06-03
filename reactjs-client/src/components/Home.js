@@ -9,7 +9,11 @@ function Home({ setShowNewsletter }) {
   // DELAY POPUP FOR 5 SECONDS - ONLY ONCE PER USER
   // =========================================================
   useEffect(() => {
-    // Check if user has already seen the popup
+    // use this block to always show the popup after 5s 
+    const timer = setTimeout(() => {
+    setShowNewsletter(true);
+    }, 5000);
+    /* Use this block to check if user has already seen the popup
     const hasSeenNewsletter = localStorage.getItem('newsletterShown');
     
     if (!hasSeenNewsletter) {
@@ -18,9 +22,9 @@ function Home({ setShowNewsletter }) {
         // Mark as shown so it won't pop up again
         localStorage.setItem('newsletterShown', 'true');
       }, 5000);
-
-      return () => clearTimeout(timer);
-    }
+    } 
+      */
+      return () => clearTimeout(timer); 
   }, [setShowNewsletter]);
 
   return (

@@ -149,70 +149,92 @@ function App() {
               <div className="newsletter-success">
                 <p>You've successfully signed up for our newsletter!</p>
                 <p>You'll be the first to know about special events and promotions.</p>
-                <button className="newsletter-confirm-btn" onClick={closeNewsletter}>
+                <button className="newsletter-close-btn" onClick={closeNewsletter}>
                   Close
                 </button>
               </div>
             )}
 
-            {/* FORM  */}
-            <form className="newsletter-form" onSubmit={handleSubmit}>
+    {/* FORM - Only show when NOT submitted */}
+    {!submitted && (
+      <form className="newsletter-form" onSubmit={handleSubmit}>
+        {error && <div className="newsletter-error">{error}</div>}
 
-                {/* ERROR MESSAGE */}
-                {error && <div className="newsletter-error">{error}</div>}
+        <div className="newsletter-row">
+          <div className="newsletter-field">
+            <label>First Name*</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-                {/* FIRST / LAST NAME ROW */}
-                <div className="newsletter-row">
-                  <div className="newsletter-field">
-                    <label>First Name*</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+          <div className="newsletter-field">
+            <label>Last Name*</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
 
-                  <div className="newsletter-field">
-                    <label>Last Name*</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
+        <div className="newsletter-field full-width">
+          <label>E-mail*</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-                {/* EMAIL */}
-                <div className="newsletter-field full-width">
-                  <label>E-mail*</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+        <div className="newsletter-field full-width">
+          <label>Phone number (optional) </label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+        </div>
 
-                {/* PHONE */}
-                <div className="newsletter-field full-width">
-                  <label>Phone number (optional) </label>
-                  <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
+        <button type="submit" className="newsletter-submit-btn">
+          Sign Up
+        </button>
+      </form>
+    )}
 
-                <button type="submit" className="newsletter-submit-btn">
-                  Sign Up
-                </button>
-              </form>
+    {/* SUBMITTED STATE - Show as static text */}
+    {submitted && (
+      <div className="newsletter-submitted-info">
+        <div className="newsletter-info-row">
+          <label>First Name</label>
+          <p className="newsletter-info-text">{formData.firstName}</p>
+        </div>
+
+        <div className="newsletter-info-row">
+          <label>Last Name</label>
+          <p className="newsletter-info-text">{formData.lastName}</p>
+        </div>
+
+        <div className="newsletter-info-row">
+          <label>E-mail</label>
+          <p className="newsletter-info-text">{formData.email}</p>
+        </div>
+
+        <div className="newsletter-info-row">
+          <label>Phone Number</label>
+          <p className="newsletter-info-text">{formData.phone || "Not provided"}</p>
+        </div>
+      </div>
+    )}
 
 
             {!submitted && (
