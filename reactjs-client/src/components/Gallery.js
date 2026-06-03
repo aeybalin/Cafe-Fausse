@@ -12,12 +12,10 @@ import caesarSalad from "../assets/gallery/caesar-salad.png";
 import event from "../assets/gallery/event.png";
 
 /* ================= AWARD LOGOS =================
-   If any filename is slightly different in your folder,
-   only update these 3 import lines.
 */
 import culinaryExcellenceAward from "../assets/awards/culinary-excellence-award-2022.png";
-import bestSeasonalMenuAward from "../assets/awards/best-seasonal-menu-award-2023.png";
-import criticsChoiceAward from "../assets/awards/critics-choice-award-2022.png";
+import restaurantOfTheYearAward from "../assets/awards/restaurant-year-award-2023.png";
+import bestFineDiningAward from "../assets/awards/best-fine-dining-award-2023.png";
 
 /* ================= DATA ================= */
 import awardsData from "../data/awards.json";
@@ -51,14 +49,15 @@ function Gallery() {
       src: culinaryExcellenceAward,
       alt: "Culinary Excellence Award 2022",
     },
-    {
-      src: bestSeasonalMenuAward,
-      alt: "Best Seasonal Menu Award 2023",
+  {
+    src: restaurantOfTheYearAward,
+    alt: "Restaurant of the Year 2023",
     },
     {
-      src: criticsChoiceAward,
-      alt: "Critics' Choice Award 2022",
+    src: bestFineDiningAward,
+    alt: "Best Fine Dining Award 2023",
     },
+
   ];
 
   /* =====================================================
