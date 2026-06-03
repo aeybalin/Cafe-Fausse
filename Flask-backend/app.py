@@ -6,6 +6,11 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from datetime import date, time, datetime
 
+# ============================================
+# DEBUG FLAG - Set to False to hide debug output
+# ============================================
+DEBUG_MODE = False
+
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
@@ -72,13 +77,13 @@ def find_available_tables():
             'tables': [
                 {
                     'table_number': t['table_number'],
-                    'capacity': t['capacity'],
                     'table_type': t['table_type'],
                     'min_capacity': t['min_capacity'],
                     'max_capacity': t['max_capacity']
                 }
                 for t in tables
             ]
+        
         }), 200
         
     except Exception as e:
@@ -90,7 +95,10 @@ def find_available_times():
     
     date_str = data.get('date')
     people_str = data.get('people')
-    
+    # Add debug logging
+    if DEBUG_MODE:
+        print(f"DEBUG: date={date_str}, people={people_str}")
+
     if not date_str or not people_str:
         return jsonify({
             'error': 'Missing required fields: date and people',
@@ -124,13 +132,18 @@ def find_available_times():
     
     try:
         conn = get_db_connection()
+        # Add debug logging
+        if DEBUG_MODE:
+            print(f"DEBUG: Connected to database at {app.config['DATABASE_URL']}")
         cur = conn.cursor()
         
         for time_str in slots:
             # Parse time for the function call
             parts = time_str.split(':')
             selected_time = time(int(parts[0]), int(parts[1]), int(parts[2]))
-            
+            # Add debug logging
+            if DEBUG_MODE:
+                print(f"DEBUG: Checking time {time_str}")
             cur.execute("""
                 SELECT * FROM fn_find_available_tables(
                     %s::date,
@@ -140,7 +153,9 @@ def find_available_times():
             """, (selected_date, selected_time, people))
             
             tables = cur.fetchall()
-            
+            # Add debug logging
+            if DEBUG_MODE:
+                print(f"DEBUG: Found {len(tables)} tables for {time_str}")
             # If at least one table is available, this time slot is available
             if tables:
                 available_times.append(time_str)
@@ -156,9 +171,11 @@ def find_available_times():
         }), 200
     
     except Exception as e:
-        print(f"ERROR in find_available_times: {e}")
-        import traceback
-        traceback.print_exc()
+        # Add debug logging
+        if DEBUG_MODE:
+            print(f"ERROR in find_available_times: {e}")
+            import traceback
+            traceback.print_exc()
         return jsonify({
             'error': str(e),
             'available_times': []
@@ -168,13 +185,17 @@ def find_available_times():
 @app.route('/api/reserve-table', methods=['POST'])
 def reserve_table():
     
-    print("=" * 50)  # Add this
-    print("RESERVE-TABLE ENDPOINT CALLED!")  # Add this
+    # Add debug logging
+    if DEBUG_MODE:
+        print("=" * 50)  # Add this
+        print("RESERVE-TABLE ENDPOINT CALLED!")  # Add this
     data = request.get_json()
-    print(f"RECEIVED DATA: {data}")  # Add this
-    print(f"firstName = {data.get('firstName')}")  # Add this
-    print(f"lastName = {data.get('lastName')}")  # Add this
-    print("=" * 50)  # Add this
+    # Add debug logging
+    if DEBUG_MODE:
+        print(f"RECEIVED DATA: {data}")  # Add this
+        print(f"firstName = {data.get('firstName')}")  # Add this
+        print(f"lastName = {data.get('lastName')}")  # Add this
+        print("=" * 50)  # Add this
 
     date_str = data.get('date')
     people_str = data.get('people')
@@ -267,9 +288,11 @@ def reserve_table():
         }), 409
         
     except Exception as e:
-        print(f"ERROR: {e}")
-        import traceback
-        traceback.print_exc()
+        # Add debug logging
+        if DEBUG_MODE:    
+            print(f"ERROR: {e}")
+            import traceback
+            traceback.print_exc()
         if conn:
             conn.rollback()
         return jsonify({
@@ -335,7 +358,9 @@ def newsletter_signup():
         }), 201
         
     except Exception as e:
-        print(f"NEWSLETTER ERROR: {e}")
+        # Add debug logging
+        if DEBUG_MODE:
+            print(f"NEWSLETTER ERROR: {e}")
         if 'conn' in locals():
             conn.rollback()
         return jsonify({
