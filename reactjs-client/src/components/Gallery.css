@@ -427,8 +427,12 @@ footer {
   }
 
   .gallery-award-item {
-    justify-content: center;
-    text-align: left;
+    
+    grid-template-columns: 1fr;   
+    justify-items: center;        
+    text-align: center;
+    gap: 12px;
+
   }
 
   .gallery-award-text-block {

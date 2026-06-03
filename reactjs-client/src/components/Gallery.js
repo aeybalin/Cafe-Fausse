@@ -49,7 +49,7 @@ function Gallery() {
       src: culinaryExcellenceAward,
       alt: "Culinary Excellence Award 2022",
     },
-  {
+    {
     src: restaurantOfTheYearAward,
     alt: "Restaurant of the Year 2023",
     },
