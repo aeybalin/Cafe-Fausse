@@ -1,4 +1,10 @@
-For MAC users:
+Project Title: Interactive Website for Cafe Fausse
+
+Project Description: The contributors to this project were tasked with making a new interactive website for this restaurant. 
+
+Priorities: The owners wanted the website to have a form that allowed customers to sign up for then Cafe's weekly newsletter as well as a web-based resrvation system that make booking a tabke easy for the customers to navigate and the Cafe to manage.
+
+Installation Instructions for MAC users:
 Clone the files for the project (use the green code button on the main page).
 Store them locally on your computer so you can access them easily via Terminal.
 Open a window in Terminal and navigate to this project (cd cafefausse)
