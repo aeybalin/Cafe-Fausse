@@ -53,8 +53,9 @@ function Reservation() {
       const hour = Math.floor(mins / 60);
       const minute = mins % 60;
       const value = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
-      const end = mins + 15;
-      const label = `${to12Hour(mins)} – ${to12Hour(end)}`;
+      const end = mins + 120;
+      const label = `       ${to12Hour(mins)}   `;
+      
       slots.push({ value, label });
     }
     return slots;
@@ -245,7 +246,7 @@ function Reservation() {
                 />
               </div>
               <div className="search-field select-field">
-                <label htmlFor="people">PEOPLE</label>
+                <label htmlFor="people">PARTY SIZE</label>
                 <select
                   id="people"
                   value={people}
@@ -253,7 +254,7 @@ function Reservation() {
                   className={!people ? "placeholder-select" : ""}
                 >
                   <option value="" disabled hidden>
-                    Select number of guests
+                    Select party size
                   </option>
                   {peopleOptions.map((count) => (
                     <option key={count} value={count}>

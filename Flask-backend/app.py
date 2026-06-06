@@ -9,7 +9,7 @@ from datetime import date, time, datetime
 # ============================================
 # DEBUG FLAG - Set to False to hide debug output
 # ============================================
-DEBUG_MODE = False
+DEBUG_MODE = True
 
 app = Flask(__name__)
 app.config.from_object(Config)

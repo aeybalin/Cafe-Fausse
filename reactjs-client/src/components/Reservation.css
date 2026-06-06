@@ -119,6 +119,10 @@
   border-radius: 0;  
   padding: 0 18px;  
 
+  /* alignment */
+  text-align: center;
+  text-align-last: center;
+  
   /* ✅ key alignment fixes */  
   display: flex;  
   align-items: center;      /* vertical centering */  

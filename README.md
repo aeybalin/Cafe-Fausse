@@ -1,12 +1,3 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
-
-# the json data files ar estored in the src/data folder other subfolders of src include assets and services
-
-don't generate sample .env files
-
-Here’s the updated `README.md` with the corrected JSON data files location and without generating actual `.env` files:
-
-```markdown
 # Café Fausse Website
 
 Café Fausse is a responsive restaurant website built with React (JavaScript/JSX), Flask, and PostgreSQL. The site includes five main pages—**Home**, **Menu**, **Reservations**, **About Us**, and **Gallery**—and supports online reservations and newsletter signups.
@@ -420,7 +411,6 @@ cafefausse/
   README.md
 ```
 
-> Adjust folder names if your actual structure differs.
 
 ## Configuration
 
@@ -777,7 +767,4 @@ npm run start
 **MAC Consulting:**
 Mary English, Auberlie Eybalin, and Chuck Ma
 
-```
-
-You can now paste this into `README.md` in your project. If you want, I can help you refine any section further (e.g., clarify how the JSON files are loaded, or add more specific troubleshooting for your exact setup).```
 
