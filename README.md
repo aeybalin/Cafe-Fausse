@@ -375,40 +375,35 @@ flask run --host localhost --port 5001 --debugger
 
 ```text
 cafefausse/
-  Flask-backend/
-    app/
-      __init__.py
-      api/
-      models/
-      routes/
-    .env
-    config.py
-    requirements.txt
-    run.py
-    db_backup.sql
-  reactjs-client/
-    src/
-      components/
-      pages/
-        Home.jsx
-        Menu.jsx
-        Reservations.jsx
-        AboutUs.jsx
-        Gallery.jsx
-      data/
-        awards.json
-        menu.json
-        reviews.json
-      services/
-      assets/
-      hooks/
-      utils/
-      App.jsx
-      index.js
-      index.css
-    public/
-    package.json
-  README.md
+├── AI-Tooling.md
+├── Flask-backend/
+│   ├── app.py
+│   ├── config.py
+│   ├── db_backup.sql
+│   ├── demo_data.sql
+│   ├── forms.py
+│   ├── requirements.txt
+│   ├── static/
+│   │   └── styles.css
+│   └── templates/
+│       └── (HTML templates: home.html, about.html, admin.html, etc.)
+├── reactjs-client/
+│   ├── package.json
+│   ├── public/
+│   │   └── (index.html, manifest.json, icons, etc.)
+│   └── src/
+│       ├── App.js
+│       ├── App.css
+│       ├── index.js
+│       ├── index.css
+│       ├── components/
+│       ├── data/
+│       │   ├── awards.json
+│       │   ├── menu.json
+│       │   └── reviews.json
+│       ├── services/
+│       └── assets/
+└── README.md
 ```
 
 

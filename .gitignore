@@ -21,3 +21,10 @@ node_modules/
 
 # Database
 Flask-backend/instance/database.db
+
+# Logs
+Flask-backend/logfile
+reactjs-client/logfile
+
+# Documentation (optional, if you want to ignore this docx)
+Flask-backend/databasescripts.docx
