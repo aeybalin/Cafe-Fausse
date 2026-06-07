@@ -1,10 +1,12 @@
 AI TOOLING DOCUMENTATION:
 
+
 Prototyping and Design
 
   Lovable.dev was used to create the initial website prototype. 
     
     Helped our team to visualize the final product before development.
+
 
 Code Development and Troubleshooting
   
@@ -21,12 +23,14 @@ Code Development and Troubleshooting
 
 Both tools provided extensive troubleshooting support for integration challenges and for cleaning and refactoring existing code.
 
+
 Image and Logo Generation
   
   Co-pilot.com helped our team create AI-generated website images and branding elements.
     
     We experienced mixed success with this tool; some images and branding elements required multiple iterations.
     That said, it was fairly easy to make refinements and adjustments to yjde elements.
+
 
 What Worked Well?
   
@@ -35,6 +39,7 @@ What Worked Well?
   Error message interpretation and debugging guidance.
   Invaluable learning support (we received not just solutions but detailed explanations about why these solutions were being offered and how they worked).
   Essential guidance on CSS grid behavior and responsive design principles.
+
 
 What Didn't Work As Well?
   
