@@ -1,12 +1,15 @@
 AI TOOLING DOCUMENTATION:
 
 Prototyping and Design
+
   Lovable.dev was used to create the initial website prototype. 
+    
     Helped our team to visualize the final product before development.
 
 Code Development and Troubleshooting
   
   Perplexity.ai was our primary tool for database structures and API functions.
+    
     Helped our team to modify the Wholly Roasters templates from Quantic AI-guidance.
     Helped our team to develop a complex table availability algorithm through AI assistance.
 
@@ -21,6 +24,7 @@ Both tools provided extensive troubleshooting support for integration challenges
 Image and Logo Generation
   
   Co-pilot.com helped our team create AI-generated website images and branding elements.
+    
     We experienced mixed success with this tool; some images and branding elements required multiple iterations.
     That said, it was fairly easy to make refinements and adjustments to yjde elements.
 
