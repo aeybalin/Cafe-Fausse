@@ -34,20 +34,20 @@ Image and Logo Generation
 
 What Worked Well?
   
-  Business logic translation (table availability algorithm).
-  Basic command assistance and integration suggestions.
-  Error message interpretation and debugging guidance.
-  Invaluable learning support (we received not just solutions but detailed explanations about why these solutions were being offered and how they worked).
-  Essential guidance on CSS grid behavior and responsive design principles.
+    Business logic translation (table availability algorithm).
+    Basic command assistance and integration suggestions.
+    Error message interpretation and debugging guidance.
+    Invaluable learning support (we received not just solutions but detailed explanations about why these solutions were being offered and how they worked).
+    Essential guidance on CSS grid behavior and responsive design principles.
 
 
 What Didn't Work As Well?
   
-  Free version limitations led to incomplete e troubleshooting steps.
-  Circular debugging when initial suggestions failed.
-  Some suggested solutions introduced new errors (e.g., one solution put new words on top of existing words rather than deleting and rewriting them) or broke existing aspects of the code.
-  Required increasingly specific prompts for complex problems.
-  Non-indexing responses made revisiting solutions difficult.
+    Free version limitations led to incomplete e troubleshooting steps.
+    Circular debugging when initial suggestions failed.
+    Some suggested solutions introduced new errors (e.g., one solution put new words on top of existing words rather than deleting and rewriting them) or broke existing aspects of the code.
+    Required increasingly specific prompts for complex problems.
+    Non-indexing responses made revisiting solutions difficult.
 
 
 
