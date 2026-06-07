@@ -760,6 +760,6 @@ npm run start
 ## Credits
 
 **MAC Consulting:**
-Mary English, Auberlie Eybalin, and Chuck Ma
+Mary English, Aurelie Eybalin, and Chuck Ma
 
 
